@@ -28,6 +28,8 @@ flutter:
     - assets/asd_care_logo.png
     - assets/menu_banner.png
     - assets/warm_welcome.png
+    - assets/about_us_banner.png
+    - assets/family_support.png
 
 flutter_icons:
   android: true
