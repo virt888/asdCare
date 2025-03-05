@@ -37,7 +37,7 @@ class LeftMenu extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.info),
-            title: const Text('了解 ASD'),
+            title: const Text('深入認識 ASD 世界'),
             onTap: () {
               Navigator.push(
                 context,
@@ -49,7 +49,7 @@ class LeftMenu extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.support),
-            title: const Text('資訊/支援 (即將推出)'),
+            title: const Text('資訊/支援'),
             onTap: () {
               Navigator.push(
                 context,

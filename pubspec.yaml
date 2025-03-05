@@ -42,6 +42,7 @@ flutter:
     - assets/question_icon.png
     - assets/answer_icon.png
     - assets/doctor_icon.png    
+    - assets/info_icon.png
 
 flutter_icons:
   android: true
