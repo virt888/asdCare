@@ -86,7 +86,8 @@ class InfoPageState extends State<InfoPage> {
 
   void _loadInterstitialAd() {
     InterstitialAd.load(
-      adUnitId: 'ca-app-pub-3940256099942544/1033173712', // 測試ID
+      // adUnitId: 'ca-app-pub-3940256099942544/1033173712', // 測試ID
+      adUnitId: 'ca-app-pub-8691410470836032/8754478052', // Real ID
       request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (InterstitialAd ad) {
