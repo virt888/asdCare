@@ -1,2 +1,3 @@
 # 忽略 build 資料夾
 /build
+/.dart_tool
