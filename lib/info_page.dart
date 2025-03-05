@@ -30,17 +30,26 @@ class InfoPageState extends State<InfoPage> {
 
   void _fetchFAQs() async {
     try {
-      final response = await http.get(Uri.parse('https://virt888.github.io/asdCare_files/faqs.yaml'));
+      final response = await http.get(
+        Uri.parse('https://virt888.github.io/asdCare_files/faqs.yaml'),
+      );
       if (response.statusCode == 200) {
         final String utf8Response = utf8.decode(response.bodyBytes); // 解決中文亂碼
         final YamlMap data = loadYaml(utf8Response);
         setState(() {
-          faqs = data.map((key, value) => MapEntry(
+          faqs = data.map(
+            (key, value) => MapEntry(
               key,
-              List<Map<String, String>>.from((value as List).map((item) => {
+              List<Map<String, String>>.from(
+                (value as List).map(
+                  (item) => {
                     "question": item["question"].toString(),
-                    "answer": item["answer"].toString()
-                  }))));
+                    "answer": item["answer"].toString(),
+                  },
+                ),
+              ),
+            ),
+          );
           _isLoading = false;
         });
         log("✅ 成功從 GitHub 下載 FAQ 數據");
@@ -57,12 +66,19 @@ class InfoPageState extends State<InfoPage> {
     final String response = await rootBundle.loadString('assets/faqs.yaml');
     final YamlMap data = loadYaml(response);
     setState(() {
-      faqs = data.map((key, value) => MapEntry(
+      faqs = data.map(
+        (key, value) => MapEntry(
           key,
-          List<Map<String, String>>.from((value as List).map((item) => {
+          List<Map<String, String>>.from(
+            (value as List).map(
+              (item) => {
                 "question": item["question"].toString(),
-                "answer": item["answer"].toString()
-              }))));
+                "answer": item["answer"].toString(),
+              },
+            ),
+          ),
+        ),
+      );
       _isLoading = false;
     });
     log("📂 使用本地 FAQ 數據");
@@ -119,53 +135,64 @@ class InfoPageState extends State<InfoPage> {
     return Scaffold(
       appBar: const CustomAppBar(),
       drawer: const LeftMenu(),
-      body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : Container(
-              width: double.infinity,
-              height: double.infinity,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: const AssetImage('assets/asd_care_wallpaper_03.png'),
-                  fit: BoxFit.cover,
-                  colorFilter: ColorFilter.mode(
-                    const Color.fromARGB(100, 255, 255, 255),
-                    BlendMode.dstATop,
+      body:
+          _isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : Container(
+                width: double.infinity,
+                height: double.infinity,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: const AssetImage('assets/asd_care_wallpaper_03.png'),
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                      const Color.fromARGB(100, 255, 255, 255),
+                      BlendMode.dstATop,
+                    ),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: ListView(
+                    children: [
+                      const Text(
+                        "🕰️ 內容將定期更新，請留意最新資訊",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.teal,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 20),
+                      buildSection("認識"),
+                      buildSection("接納"),
+                      buildSection("行動"),
+                      const SizedBox(height: 30),
+                      // --------------------------------------------
+                      // Uncomment below to use two buttons for debug
+                      // --------------------------------------------
+                      // ElevatedButton(
+                      //   onPressed: _showAdAndUnlockAnswers,
+                      //   child: const Text("觀看廣告解鎖所有答案"),
+                      // ),
+                      // const SizedBox(height: 10),
+                      // ElevatedButton(
+                      //   onPressed: () {
+                      //     setState(() {
+                      //       _isAdWatched = !_isAdWatched;
+                      //       log("🔧 DEBUG: 設定 _isAdWatched = $_isAdWatched");
+                      //     });
+                      //   },
+                      //   child: Text(
+                      //     "DEBUG 模式: ${_isAdWatched ? "隱藏答案" : "顯示答案"}",
+                      //   ),
+                      // ),
+                      // --------------------------------------------
+                    ],
                   ),
                 ),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: ListView(
-                  children: [
-                    const Text(
-                      "🕰️ 內容將定期更新，請留意最新資訊",
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.teal),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 20),
-                    buildSection("認識"),
-                    buildSection("接納"),
-                    buildSection("行動"),
-                    const SizedBox(height: 30),
-                    ElevatedButton(
-                      onPressed: _showAdAndUnlockAnswers,
-                      child: const Text("觀看廣告解鎖所有答案"),
-                    ),
-                    const SizedBox(height: 10),
-                    ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          _isAdWatched = !_isAdWatched;
-                          log("🔧 DEBUG: 設定 _isAdWatched = $_isAdWatched");
-                        });
-                      },
-                      child: Text("DEBUG 模式: ${_isAdWatched ? "隱藏答案" : "顯示答案"}"),
-                    ),
-                  ],
-                ),
-              ),
-            ),
     );
   }
 
@@ -176,13 +203,20 @@ class InfoPageState extends State<InfoPage> {
         Divider(color: Colors.teal.shade700, thickness: 2),
         Text(
           sectionTitle,
-          style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.teal),
+          style: const TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+            color: Colors.teal,
+          ),
         ),
         const SizedBox(height: 10),
         if (faqs.containsKey(sectionTitle) && faqs[sectionTitle]!.isNotEmpty)
           ...faqs[sectionTitle]!.map((faq) => buildFAQItem(faq)).toList()
         else
-          const Text("（暫無內容）", style: TextStyle(fontSize: 16, color: Colors.grey)),
+          const Text(
+            "（暫無內容）",
+            style: TextStyle(fontSize: 16, color: Colors.grey),
+          ),
         const SizedBox(height: 20),
       ],
     );
@@ -209,7 +243,10 @@ class InfoPageState extends State<InfoPage> {
                   ),
                   child: Text(
                     "問： ${faq['question']}",
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
@@ -229,12 +266,23 @@ class InfoPageState extends State<InfoPage> {
                     color: Colors.orange.shade200,
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: _isAdWatched
-                      ? Text("答： ${faq['answer']}", style: const TextStyle(fontSize: 16))
-                      : GestureDetector(
-                          onTap: _showAdAndUnlockAnswers,
-                          child: const Text("🔒 請觀看廣告解鎖內容", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.red)),
-                        ),
+                  child:
+                      _isAdWatched
+                          ? Text(
+                            "答： ${faq['answer']}",
+                            style: const TextStyle(fontSize: 16),
+                          )
+                          : GestureDetector(
+                            onTap: _showAdAndUnlockAnswers,
+                            child: const Text(
+                              "🔒 請觀看廣告解鎖內容",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.red,
+                              ),
+                            ),
+                          ),
                 ),
               ),
               const SizedBox(width: 8),
