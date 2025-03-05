@@ -7,3 +7,4 @@
 
 # 可選：確保 .gitignore 文件不被忽略
 !.gitignore
+/build
