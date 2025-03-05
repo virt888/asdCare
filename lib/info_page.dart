@@ -43,11 +43,12 @@ class InfoPageState extends State<InfoPage> {
                   }))));
           _isLoading = false;
         });
+        log("✅ 成功從 GitHub 下載 FAQ 數據");
       } else {
         throw Exception("網絡請求失敗，使用本地數據");
       }
     } catch (e) {
-      log("下載 GitHub 數據時出錯，使用本地數據: $e");
+      log("⚠️ 下載 GitHub 數據時出錯，使用本地數據: $e");
       _loadLocalFAQs();
     }
   }
@@ -64,6 +65,7 @@ class InfoPageState extends State<InfoPage> {
               }))));
       _isLoading = false;
     });
+    log("📂 使用本地 FAQ 數據");
   }
 
   void _loadInterstitialAd() {
@@ -73,10 +75,11 @@ class InfoPageState extends State<InfoPage> {
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (InterstitialAd ad) {
           _interstitialAd = ad;
+          log("✅ 廣告加載成功");
         },
         onAdFailedToLoad: (LoadAdError error) {
           _interstitialAd = null;
-          log('InterstitialAd failed to load: $error');
+          log("⚠️ 廣告加載失敗: $error");
         },
       ),
     );
@@ -89,11 +92,12 @@ class InfoPageState extends State<InfoPage> {
           setState(() {
             _isAdWatched = true;
           });
+          log("✅ 用戶已觀看廣告，解鎖答案");
           ad.dispose();
           _loadInterstitialAd();
         },
         onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
-          log('Ad failed to show: $error');
+          log("⚠️ 廣告播放失敗: $error");
           setState(() {
             _isAdWatched = true;
           });
@@ -103,6 +107,7 @@ class InfoPageState extends State<InfoPage> {
       );
       _interstitialAd!.show();
     } else {
+      log("⚠️ 廣告未準備好，直接解鎖答案");
       setState(() {
         _isAdWatched = true;
       });
@@ -134,7 +139,7 @@ class InfoPageState extends State<InfoPage> {
                 child: ListView(
                   children: [
                     const Text(
-                      "🕒 內容將定期更新，請留意最新資訊",
+                      "🕰️ 內容將定期更新，請留意最新資訊",
                       style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.teal),
                       textAlign: TextAlign.center,
                     ),
@@ -152,6 +157,7 @@ class InfoPageState extends State<InfoPage> {
                       onPressed: () {
                         setState(() {
                           _isAdWatched = !_isAdWatched;
+                          log("🔧 DEBUG: 設定 _isAdWatched = $_isAdWatched");
                         });
                       },
                       child: Text("DEBUG 模式: ${_isAdWatched ? "隱藏答案" : "顯示答案"}"),
