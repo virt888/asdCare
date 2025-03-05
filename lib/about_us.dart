@@ -34,7 +34,7 @@ class AboutUsPage extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             const Text(
-              '💙 這個專頁由一位 ASD 孩子的家長創立，希望透過自身經歷和資源，為更多 ASD 家庭帶來支持、理解和溫暖。我們深知這條路不容易走，因此希望用實際行動，幫助更多有需要的人。',
+              '💙 這APP由一位 ASD 孩子的家長創立，希望透過自身經歷和資源，為更多 ASD 家庭帶來支持、理解和溫暖。我們深知這條路不容易走，因此希望用實際行動，幫助更多有需要的人。',
               style: TextStyle(fontSize: 16),
               textAlign: TextAlign.center,
             ),
