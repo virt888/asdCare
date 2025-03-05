@@ -1,3 +1,7 @@
+admob:
+  #adUnitId: 'ca-app-pub-3940256099942544/1033173712'  # 測試ID
+  adUnitId: "ca-app-pub-8691410470836032/8754478052"  # Real ID
+
 認識:
   - question: "ASD 其實係乜？全名？"
     answer: "ASD（Autism Spectrum Disorder，自閉症譜系障礙）係影響社交、溝通同行為發展嘅神經發展障礙。"
