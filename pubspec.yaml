@@ -37,9 +37,11 @@ flutter:
     - assets/asd_care_wallpaper.png
     - assets/asd_care_wallpaper_02.png
     - assets/asd_care_wallpaper_03.png
+    - assets/asd_care_wallpaper_04.png
     - assets/faqs.yaml
     - assets/question_icon.png
     - assets/answer_icon.png
+    - assets/doctor_icon.png    
 
 flutter_icons:
   android: true

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'home_page.dart'; // ✅ 導入 AboutUsPage
+import 'home_page.dart'; // ✅ 導入 HomePage
 import 'about_us.dart'; // ✅ 導入 AboutUsPage
-import 'info_page.dart'; // ✅ 導入 AboutUsPage
+import 'info_page.dart'; // ✅ 導入 InfoPage
+import 'support_page.dart'; // ✅ 導入 SupportPage
 
 class LeftMenu extends StatelessWidget {
   const LeftMenu({super.key});
@@ -50,7 +51,12 @@ class LeftMenu extends StatelessWidget {
             leading: const Icon(Icons.support),
             title: const Text('資訊/支援 (即將推出)'),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SupportPage(),
+                ), // ✅ 跳轉到 SupportPage
+              );
             },
           ),
           ListTile(
