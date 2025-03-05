@@ -1,6 +1,6 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=/Volumes/CORE_DATA/flutter_workspace/flutter"
+export "FLUTTER_ROOT=/Users/barrytji/Documents/barry/hkland/src_infoex/flutter"
 export "FLUTTER_APPLICATION_PATH=/Users/barrytji/Documents/barry/hkland/src_infoex/asdCare"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_BUILD_DIR=build"
