@@ -90,7 +90,7 @@ class HomePage extends StatelessWidget {
               ElevatedButton.icon(
                 icon: const FaIcon(FontAwesomeIcons.whatsapp, color: Colors.white),
                 label: const Text(
-                  '加入 WhatsApp 討論',
+                  '加入 WhatsApp 社區',
                   style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
                 ),
                 style: ElevatedButton.styleFrom(
@@ -99,7 +99,7 @@ class HomePage extends StatelessWidget {
                   textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 onPressed: () {
-                  final Uri whatsappUri = Uri.parse('https://wa.me/85263618727?text=%E6%88%91%E6%83%B3%E8%AB%8B%E5%95%8F%E4%B8%80%E4%B8%8BASD%20%E8%87%AA%E9%96%89%E7%97%87%E5%82%BE%E5%90%91%E7%9A%84%E6%9B%B4%E5%A4%9A%E8%B3%87%E8%A8%8A');
+                  final Uri whatsappUri = Uri.parse('https://chat.whatsapp.com/Dpx80ytWHgO2FtStV0ntek');
                   launchUrl(whatsappUri, mode: LaunchMode.externalApplication);
                 },
               ),
