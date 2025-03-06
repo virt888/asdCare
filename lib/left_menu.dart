@@ -1,13 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'home_page.dart'; // ✅ 導入 HomePage
-import 'about_us.dart'; // ✅ 導入 AboutUsPage
-import 'info_page.dart'; // ✅ 導入 InfoPage
-import 'support_page.dart'; // ✅ 導入 SupportPage
+import 'package:package_info_plus/package_info_plus.dart'; // ✅ 新增這個
 
-class LeftMenu extends StatelessWidget {
+import 'home_page.dart';
+import 'about_us.dart';
+import 'info_page.dart';
+import 'support_page.dart';
+
+class LeftMenu extends StatefulWidget {
   const LeftMenu({super.key});
+
+  @override
+  LeftMenuState createState() => LeftMenuState();
+}
+
+class LeftMenuState extends State<LeftMenu> {
+  String appVersion = "載入中..."; // 預設值
+
+  @override
+  void initState() {
+    super.initState();
+    _loadAppVersion();
+  }
+
+  void _loadAppVersion() async {
+    try {
+      PackageInfo packageInfo = await PackageInfo.fromPlatform();
+      setState(() {
+        appVersion = packageInfo.version;
+      });
+    } catch (e) {
+      setState(() {
+        appVersion = "無法讀取版本";
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +46,7 @@ class LeftMenu extends StatelessWidget {
             height: 250,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/menu_banner.png'), // ✅ 放置設計的 BANNER
+                image: AssetImage('assets/menu_banner.png'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -29,9 +57,7 @@ class LeftMenu extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const HomePage(),
-                ), // ✅ 跳轉到 HomePage
+                MaterialPageRoute(builder: (context) => const HomePage()),
               );
             },
           ),
@@ -41,9 +67,7 @@ class LeftMenu extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const InfoPage(),
-                ), // ✅ 跳轉到 InfoPage
+                MaterialPageRoute(builder: (context) => const InfoPage()),
               );
             },
           ),
@@ -53,9 +77,7 @@ class LeftMenu extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const SupportPage(),
-                ), // ✅ 跳轉到 SupportPage
+                MaterialPageRoute(builder: (context) => const SupportPage()),
               );
             },
           ),
@@ -70,10 +92,7 @@ class LeftMenu extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const FaIcon(
-              FontAwesomeIcons.whatsapp,
-              color: Colors.black,
-            ), // ✅ 使用 FontAwesome WhatsApp 圖示
+            leading: const FaIcon(FontAwesomeIcons.whatsapp, color: Colors.black),
             title: const Text('WHATSAPP 社區'),
             onTap: () {
               final Uri whatsappUri = Uri.parse(
@@ -83,10 +102,7 @@ class LeftMenu extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const FaIcon(
-              FontAwesomeIcons.whatsapp,
-              color: Colors.black,
-            ), // ✅ 使用 FontAwesome WhatsApp 圖示
+            leading: const FaIcon(FontAwesomeIcons.whatsapp, color: Colors.black),
             title: const Text('WHATSAPP 諮詢'),
             onTap: () {
               final Uri whatsappUri = Uri.parse(
@@ -94,34 +110,25 @@ class LeftMenu extends StatelessWidget {
               );
               launchUrl(whatsappUri, mode: LaunchMode.externalApplication);
             },
-          ),          
-          // ListTile(
-          //   leading: const Icon(Icons.settings),
-          //   title: const Text('設定'),
-          //   onTap: () {
-          //     Navigator.pop(context);
-          //   },
-          // ),
+          ),
           ListTile(
             leading: const Icon(Icons.info_outline),
             title: const Text('關於我們'),
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const AboutUsPage(),
-                ), // ✅ 跳轉到 AboutUsPage
+                MaterialPageRoute(builder: (context) => const AboutUsPage()),
               );
             },
           ),
-          const Spacer(), // ✅ 讓版本號固定在底部
-          const Align(
+          const Spacer(),
+          Align(
             alignment: Alignment.centerLeft,
             child: Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: Text(
-                '        版本號: v1.0.1',
-                style: TextStyle(fontSize: 12, color: Colors.grey),
+                '        版本號: v$appVersion',
+                style: const TextStyle(fontSize: 12, color: Colors.grey),
               ),
             ),
           ),
