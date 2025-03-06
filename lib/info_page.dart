@@ -53,12 +53,16 @@ class InfoPageState extends State<InfoPage> {
           _isLoading = false;
         });
         log("✅ 成功從 GitHub 下載 FAQ 數據");
+        print("✅ 成功從 GitHub 下載 FAQ 數據");
       } else {
+        print("網絡請求失敗，使用本地數據");
         throw Exception("網絡請求失敗，使用本地數據");
       }
     } catch (e) {
       log("⚠️ 下載 GitHub 數據時出錯，使用本地數據: $e");
+      print("START > ⚠️ 下載 GitHub 數據時出錯，使用本地數據: $e");
       _loadLocalFAQs();
+      print("END > ⚠️ 下載 GitHub 數據時出錯，使用本地數據: $e");
     }
   }
 
@@ -82,12 +86,14 @@ class InfoPageState extends State<InfoPage> {
       _isLoading = false;
     });
     log("📂 使用本地 FAQ 數據");
+    print("📂 使用本地 FAQ 數據");
   }
 
   void _loadInterstitialAd() {
     InterstitialAd.load(
-      // adUnitId: 'ca-app-pub-3940256099942544/1033173712', // 測試ID
-      adUnitId: 'ca-app-pub-8691410470836032/8754478052', // Real ID
+      // adUnitId: 'ca-app-pub-3940256099942544/1033173712', // 測試 ID
+      adUnitId: 'ca-app-pub-3940256099942544/4411468910', // 測試 ID2
+      // adUnitId: 'ca-app-pub-8691410470836032/8754478052', // Real ID
       request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (InterstitialAd ad) {
