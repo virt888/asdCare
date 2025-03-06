@@ -28,47 +28,37 @@ class InfoPageState extends State<InfoPage> {
     _fetchFAQs();
   }
 
-  void _fetchFAQs() async {
+  Future<void> _fetchFAQs() async {
     try {
-      final response = await http.get(
-        Uri.parse('https://virt888.github.io/asdCare_files/faqs.yaml'),
-      );
+      final response = await http
+          .get(Uri.parse('https://virt888.github.io/asdCare_files/faqs.yaml'))
+          .timeout(const Duration(seconds: 3)); // 設定 3 秒超時
       if (response.statusCode == 200) {
-        final String utf8Response = utf8.decode(response.bodyBytes); // 解決中文亂碼
+        final String utf8Response = utf8.decode(response.bodyBytes);
         final YamlMap data = loadYaml(utf8Response);
-        setState(() {
-          faqs = data.map(
-            (key, value) => MapEntry(
-              key,
-              List<Map<String, String>>.from(
-                (value as List).map(
-                  (item) => {
-                    "question": item["question"].toString(),
-                    "answer": item["answer"].toString(),
-                  },
-                ),
-              ),
-            ),
-          );
-          _isLoading = false;
-        });
+        _parseFAQData(data);
         log("✅ 成功從 GitHub 下載 FAQ 數據");
-        print("✅ 成功從 GitHub 下載 FAQ 數據");
       } else {
-        print("網絡請求失敗，使用本地數據");
         throw Exception("網絡請求失敗，使用本地數據");
       }
     } catch (e) {
       log("⚠️ 下載 GitHub 數據時出錯，使用本地數據: $e");
-      print("START > ⚠️ 下載 GitHub 數據時出錯，使用本地數據: $e");
       _loadLocalFAQs();
-      print("END > ⚠️ 下載 GitHub 數據時出錯，使用本地數據: $e");
     }
   }
 
-  void _loadLocalFAQs() async {
-    final String response = await rootBundle.loadString('assets/faqs.yaml');
-    final YamlMap data = loadYaml(response);
+  Future<void> _loadLocalFAQs() async {
+    try {
+      final String response = await rootBundle.loadString('assets/faqs.yaml');
+      final YamlMap data = loadYaml(response);
+      _parseFAQData(data);
+      log("📂 使用本地 FAQ 數據");
+    } catch (e) {
+      log("❌ 無法加載本地 FAQ 數據: $e");
+    }
+  }
+
+  void _parseFAQData(YamlMap data) {
     setState(() {
       faqs = data.map(
         (key, value) => MapEntry(
@@ -85,15 +75,12 @@ class InfoPageState extends State<InfoPage> {
       );
       _isLoading = false;
     });
-    log("📂 使用本地 FAQ 數據");
-    print("📂 使用本地 FAQ 數據");
   }
 
   void _loadInterstitialAd() {
     InterstitialAd.load(
       // adUnitId: 'ca-app-pub-3940256099942544/1033173712', // 測試 ID
-      adUnitId: 'ca-app-pub-3940256099942544/4411468910', // 測試 ID2
-      // adUnitId: 'ca-app-pub-8691410470836032/8754478052', // Real ID
+      adUnitId: 'ca-app-pub-8691410470836032~6319886404', // REAL ID
       request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (InterstitialAd ad) {
@@ -142,64 +129,41 @@ class InfoPageState extends State<InfoPage> {
     return Scaffold(
       appBar: const CustomAppBar(),
       drawer: const LeftMenu(),
-      body:
-          _isLoading
-              ? const Center(child: CircularProgressIndicator())
-              : Container(
-                width: double.infinity,
-                height: double.infinity,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: const AssetImage('assets/asd_care_wallpaper_03.png'),
-                    fit: BoxFit.cover,
-                    colorFilter: ColorFilter.mode(
-                      const Color.fromARGB(100, 255, 255, 255),
-                      BlendMode.dstATop,
-                    ),
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: ListView(
-                    children: [
-                      const Text(
-                        "🕰️ 內容將定期更新，請留意最新資訊",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.teal,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 20),
-                      buildSection("認識"),
-                      buildSection("接納"),
-                      buildSection("行動"),
-                      const SizedBox(height: 30),
-                      // --------------------------------------------
-                      // Uncomment below to use two buttons for debug
-                      // --------------------------------------------
-                      // ElevatedButton(
-                      //   onPressed: _showAdAndUnlockAnswers,
-                      //   child: const Text("觀看廣告解鎖所有答案"),
-                      // ),
-                      // const SizedBox(height: 10),
-                      // ElevatedButton(
-                      //   onPressed: () {
-                      //     setState(() {
-                      //       _isAdWatched = !_isAdWatched;
-                      //       log("🔧 DEBUG: 設定 _isAdWatched = $_isAdWatched");
-                      //     });
-                      //   },
-                      //   child: Text(
-                      //     "DEBUG 模式: ${_isAdWatched ? "隱藏答案" : "顯示答案"}",
-                      //   ),
-                      // ),
-                      // --------------------------------------------
-                    ],
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : Container(
+              width: double.infinity,
+              height: double.infinity,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: const AssetImage('assets/asd_care_wallpaper_03.png'),
+                  fit: BoxFit.cover,
+                  colorFilter: ColorFilter.mode(
+                    const Color.fromARGB(100, 255, 255, 255),
+                    BlendMode.dstATop,
                   ),
                 ),
               ),
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: ListView(
+                  children: [
+                    const Text(
+                      "🕰️ 內容將定期更新，請留意最新資訊",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.teal,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 20),
+                    ...faqs.keys.map((section) => buildSection(section)).toList(),
+                    const SizedBox(height: 30),
+                  ],
+                ),
+              ),
+            ),
     );
   }
 
@@ -273,23 +237,22 @@ class InfoPageState extends State<InfoPage> {
                     color: Colors.orange.shade200,
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child:
-                      _isAdWatched
-                          ? Text(
-                            "答： ${faq['answer']}",
-                            style: const TextStyle(fontSize: 16),
-                          )
-                          : GestureDetector(
-                            onTap: _showAdAndUnlockAnswers,
-                            child: const Text(
-                              "🔒 請觀看廣告解鎖內容",
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.red,
-                              ),
+                  child: _isAdWatched
+                      ? Text(
+                          "答： ${faq['answer']}",
+                          style: const TextStyle(fontSize: 16),
+                        )
+                      : GestureDetector(
+                          onTap: _showAdAndUnlockAnswers,
+                          child: const Text(
+                            "🔒 請觀看廣告解鎖內容",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.red,
                             ),
                           ),
+                        ),
                 ),
               ),
               const SizedBox(width: 8),
