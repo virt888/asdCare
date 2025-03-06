@@ -1,5 +1,7 @@
 # 忽略 build 資料夾
 /build
 /.dart_tool
-/.flutter-plugins-dependencies
-/.flutter-plugins
+.flutter-plugins-dependencies
+.flutter-plugins
+android/local.properties
+
