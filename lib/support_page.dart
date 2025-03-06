@@ -29,10 +29,12 @@ class SupportPageState extends State<SupportPage> {
     try {
       final response = await http.get(
         Uri.parse('https://virt888.github.io/asdCare_files/reference_urls.yaml'),
-      );
+      ).timeout(const Duration(seconds: 3)); // ✅ 設置 3 秒 Timeout
+
       if (response.statusCode == 200) {
-        final String utf8Response = utf8.decode(response.bodyBytes); // 解決中文亂碼
+        final String utf8Response = utf8.decode(response.bodyBytes);
         final YamlMap data = loadYaml(utf8Response);
+
         setState(() {
           referenceLinks = List<Map<String, String>>.from(
             (data['links'] as List).map(
@@ -44,9 +46,10 @@ class SupportPageState extends State<SupportPage> {
           );
           _isLoading = false;
         });
+
         log("✅ 成功從 GitHub 下載 Reference Links");
       } else {
-        throw Exception("網絡請求失敗，使用本地數據");
+        throw Exception("❌ 網絡請求失敗，使用本地數據");
       }
     } catch (e) {
       log("⚠️ 下載 Reference Links 時出錯，使用本地數據: $e");
@@ -57,6 +60,7 @@ class SupportPageState extends State<SupportPage> {
   void _loadLocalReferenceLinks() async {
     final String response = await rootBundle.loadString('assets/reference_urls.yaml');
     final YamlMap data = loadYaml(response);
+
     setState(() {
       referenceLinks = List<Map<String, String>>.from(
         (data['links'] as List).map(
@@ -68,7 +72,8 @@ class SupportPageState extends State<SupportPage> {
       );
       _isLoading = false;
     });
-    log("📂 使用本地 Reference Links 數據");
+
+    log("📂 使用本地 Reference Links");
   }
 
   @override

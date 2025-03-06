@@ -87,10 +87,10 @@ class LeftMenu extends StatelessWidget {
               FontAwesomeIcons.whatsapp,
               color: Colors.black,
             ), // ✅ 使用 FontAwesome WhatsApp 圖示
-            title: const Text('WHATSAPP 免費諮詢'),
+            title: const Text('WHATSAPP 諮詢'),
             onTap: () {
               final Uri whatsappUri = Uri.parse(
-                'https://wa.me/85263618727?text=%E6%88%91%E6%83%B3%E8%AB%8B%E5%95%8F%E4%B8%80%E4%B8%8BASD%20%E8%87%AA%E9%96%89%E7%97%87%E5%82%BE%E5%90%91%E7%9A%84%E6%9B%B4%E5%A4%9A%E8%B3%87%E8%A8%8A',
+                'https://chat.whatsapp.com/LoV9rBJ18KCGSDNJRFLmws?text=%E6%88%91%E6%83%B3%E8%AB%8B%E5%95%8F%E4%B8%80%E4%B8%8BASD%20%E8%87%AA%E9%96%89%E7%97%87%E5%82%BE%E5%90%91%E7%9A%84%E6%9B%B4%E5%A4%9A%E8%B3%87%E8%A8%8A',
               );
               launchUrl(whatsappUri, mode: LaunchMode.externalApplication);
             },
@@ -120,7 +120,7 @@ class LeftMenu extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.all(8.0),
               child: Text(
-                '        版本號: v1.0.0',
+                '        版本號: v1.0.1',
                 style: TextStyle(fontSize: 12, color: Colors.grey),
               ),
             ),
