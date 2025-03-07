@@ -1,10 +1,80 @@
 import 'package:flutter/material.dart';
 import 'custom_app_bar.dart';
 import 'left_menu.dart';
-import 'package:url_launcher/url_launcher.dart'; // ✅ 新增 URL 啟動功能
+import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter/services.dart';
+import 'package:yaml/yaml.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'dart:developer';
 
-class SupportPage extends StatelessWidget {
+class SupportPage extends StatefulWidget {
   const SupportPage({super.key});
+
+  @override
+  SupportPageState createState() => SupportPageState();
+}
+
+class SupportPageState extends State<SupportPage> {
+  List<Map<String, String>> referenceLinks = [];
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchReferenceLinks();
+  }
+
+  void _fetchReferenceLinks() async {
+    try {
+      final response = await http.get(
+        Uri.parse('https://virt888.github.io/asdCare_files/reference_urls.yaml'),
+      ).timeout(const Duration(seconds: 3)); // ✅ 設置 3 秒 Timeout
+
+      if (response.statusCode == 200) {
+        final String utf8Response = utf8.decode(response.bodyBytes);
+        final YamlMap data = loadYaml(utf8Response);
+
+        setState(() {
+          referenceLinks = List<Map<String, String>>.from(
+            (data['links'] as List).map(
+              (item) => {
+                "title": item["title"].toString(),
+                "url": item["url"].toString(),
+              },
+            ),
+          );
+          _isLoading = false;
+        });
+
+        log("✅ 成功從 GitHub 下載 Reference Links");
+      } else {
+        throw Exception("❌ 網絡請求失敗，使用本地數據");
+      }
+    } catch (e) {
+      log("⚠️ 下載 Reference Links 時出錯，使用本地數據: $e");
+      _loadLocalReferenceLinks();
+    }
+  }
+
+  void _loadLocalReferenceLinks() async {
+    final String response = await rootBundle.loadString('assets/reference_urls.yaml');
+    final YamlMap data = loadYaml(response);
+
+    setState(() {
+      referenceLinks = List<Map<String, String>>.from(
+        (data['links'] as List).map(
+          (item) => {
+            "title": item["title"].toString(),
+            "url": item["url"].toString(),
+          },
+        ),
+      );
+      _isLoading = false;
+    });
+
+    log("📂 使用本地 Reference Links");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +86,10 @@ class SupportPage extends StatelessWidget {
         height: double.infinity,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/asd_care_wallpaper_04.png'), // ✅ 背景圖片
+            image: AssetImage('assets/asd_care_wallpaper_04.png'),
             fit: BoxFit.cover,
             colorFilter: ColorFilter.mode(
-              Color.fromARGB(80, 255, 255, 255), // ✅ 讓背景變淡
+              Color.fromARGB(80, 255, 255, 255),
               BlendMode.dstATop,
             ),
           ),
@@ -36,7 +106,7 @@ class SupportPage extends StatelessWidget {
                     'assets/doctor_icon.png',
                     width: 48,
                     height: 48,
-                  ), // 🏥 醫生 ICON
+                  ),
                   const SizedBox(width: 10),
                   const Text(
                     "故事例子 （一）",
@@ -82,7 +152,7 @@ class SupportPage extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.white.withAlpha(
                     (0.95 * 255).toInt(),
-                  ), // ✅ 半透明白底
+                  ),
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
@@ -101,7 +171,7 @@ class SupportPage extends StatelessWidget {
                           'assets/info_icon.png',
                           width: 30,
                           height: 30,
-                        ), // ℹ️ INFO ICON
+                        ),
                         const SizedBox(width: 10),
                         const Text(
                           "重要連結",
@@ -114,23 +184,17 @@ class SupportPage extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 10),
-                    _buildLink(
-                      "📝 康復服務中央轉介系統輪候冊",
-                      "https://www.swd.gov.hk/tc/pubsvc/rehab/cat_crsrehab/crsrehabwa/",
-                    ),
-                    _buildLink(
-                      "🏥 兒童體能及智力測驗中心",
-                      "https://www.dhcas.gov.hk/tc/center_info.html",
-                    ),
-                    _buildLink(
-                      "🎓 香港政府 - 特殊教育需要",
-                      "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/special-educational-needs/index.html",
-                    ),
-                    _buildLink(
-                      "📘 香港支援SEN學童及其家長的機構",
-                      "https://www.socialcareer.org/blogs/hong-kong-support-for-sen-students-and-parents-list-of-organisations-and-programmes",
-                    ),
-                    _buildLink("🧩 香港自閉症聯盟", "https://www.autism.hk/"),
+                    _isLoading
+                        ? const Center(child: CircularProgressIndicator())
+                        : Column(
+                            crossAxisAlignment: CrossAxisAlignment.start, // ✅ 確保文字左對齊
+                            children: referenceLinks
+                                .map((link) => Align(
+                                      alignment: Alignment.centerLeft, // ✅ 讓每個 Link 左對齊
+                                      child: _buildLink(link['title']!, link['url']!),
+                                    ))
+                                .toList(),
+                          ),
                   ],
                 ),
               ),
@@ -208,7 +272,7 @@ class SupportPage extends StatelessWidget {
           style: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
-            color: Color(0xFF6D6D6D), // ✅ 柔和的深灰色
+            color: Color(0xFF6D6D6D),
             decoration: TextDecoration.underline,
           ),
         ),
