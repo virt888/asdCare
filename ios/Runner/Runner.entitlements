@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- ✅ APNs 設定：Xcode 會根據環境選擇 "development" 或 "production" -->
+    <key>aps-environment</key>
+    <string>development</string>
+</dict>
+</plist>
