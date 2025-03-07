@@ -8,6 +8,9 @@ import 'about_us.dart';
 import 'info_page.dart';
 import 'support_page.dart';
 
+import 'memory_game.dart'; // ✅ 新增 記憶翻牌遊戲
+import 'self_test.dart'; // ✅ 新增 記憶翻牌遊戲
+
 class LeftMenu extends StatefulWidget {
   const LeftMenu({super.key});
 
@@ -53,7 +56,7 @@ class LeftMenuState extends State<LeftMenu> {
           ),
           ListTile(
             leading: const Icon(Icons.home),
-            title: const Text('主頁'),
+            title: const Text('主頁 🏠'),
             onTap: () {
               Navigator.push(
                 context,
@@ -63,7 +66,7 @@ class LeftMenuState extends State<LeftMenu> {
           ),
           ListTile(
             leading: const Icon(Icons.info),
-            title: const Text('深入認識 ASD 世界'),
+            title: const Text('深入認識 ASD 世界 🧩'),
             onTap: () {
               Navigator.push(
                 context,
@@ -73,7 +76,7 @@ class LeftMenuState extends State<LeftMenu> {
           ),
           ListTile(
             leading: const Icon(Icons.support),
-            title: const Text('資訊/支援'),
+            title: const Text('資訊/支援 📚'),
             onTap: () {
               Navigator.push(
                 context,
@@ -82,8 +85,32 @@ class LeftMenuState extends State<LeftMenu> {
             },
           ),
           ListTile(
+            leading: const Icon(Icons.memory),
+            title: const Text('小遊戲 🃏'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const MemoryGamePage(),
+                ), // ✅ 記憶翻牌遊戲
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.assignment), // ✅ 使用問卷圖標
+            title: const Text('小測驗 📝'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SelfTestPage(),
+                ), // ✅ 自閉症小測驗
+              );
+            },
+          ),
+          ListTile(
             leading: const Icon(Icons.facebook),
-            title: const Text('FACEBOOK 社區'),
+            title: const Text('FACEBOOK 社區 📘'),
             onTap: () {
               final Uri facebookUri = Uri.parse(
                 'https://www.facebook.com/profile.php?id=61573752815081',
@@ -92,8 +119,11 @@ class LeftMenuState extends State<LeftMenu> {
             },
           ),
           ListTile(
-            leading: const FaIcon(FontAwesomeIcons.whatsapp, color: Colors.black),
-            title: const Text('WHATSAPP 社區'),
+            leading: const FaIcon(
+              FontAwesomeIcons.whatsapp,
+              color: Colors.black,
+            ),
+            title: const Text('WHATSAPP 社區 👥'),
             onTap: () {
               final Uri whatsappUri = Uri.parse(
                 'https://chat.whatsapp.com/Dpx80ytWHgO2FtStV0ntek',
@@ -102,8 +132,11 @@ class LeftMenuState extends State<LeftMenu> {
             },
           ),
           ListTile(
-            leading: const FaIcon(FontAwesomeIcons.whatsapp, color: Colors.black),
-            title: const Text('WHATSAPP 諮詢'),
+            leading: const FaIcon(
+              FontAwesomeIcons.whatsapp,
+              color: Colors.black,
+            ),
+            title: const Text('WHATSAPP 諮詢 💬'),
             onTap: () {
               final Uri whatsappUri = Uri.parse(
                 'https://chat.whatsapp.com/LoV9rBJ18KCGSDNJRFLmws?text=%E6%88%91%E6%83%B3%E8%AB%8B%E5%95%8F%E4%B8%80%E4%B8%8BASD%20%E8%87%AA%E9%96%89%E7%97%87%E5%82%BE%E5%90%91%E7%9A%84%E6%9B%B4%E5%A4%9A%E8%B3%87%E8%A8%8A',
@@ -113,7 +146,7 @@ class LeftMenuState extends State<LeftMenu> {
           ),
           ListTile(
             leading: const Icon(Icons.info_outline),
-            title: const Text('關於我們'),
+            title: const Text('關於我們 ℹ️'),
             onTap: () {
               Navigator.push(
                 context,
