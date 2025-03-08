@@ -40,8 +40,8 @@ class MemoryGamePageState extends State<MemoryGamePage> {
   );
 
   Timer? _timer;
-  int _elapsedTime = 0; // 用秒計算時間
-  int? _bestTime; // 最佳成績（秒）
+  int _elapsedTime = 0; // ⏳ 記錄遊戲時間（秒）
+  int? _bestTime; // 🏆 最快通關時間
 
   @override
   void initState() {
@@ -49,6 +49,7 @@ class MemoryGamePageState extends State<MemoryGamePage> {
     _resetGame();
   }
 
+  /// 🎴 初始化遊戲狀態
   void _resetGame() {
     _cardValues.shuffle();
     _flipped = List.filled(_cardValues.length, false);
@@ -60,6 +61,7 @@ class MemoryGamePageState extends State<MemoryGamePage> {
     _timer?.cancel();
   }
 
+  /// ⏳ 開始計時（第一次翻牌時）
   void _startTimer() {
     if (_timer == null || !_timer!.isActive) {
       _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -70,10 +72,11 @@ class MemoryGamePageState extends State<MemoryGamePage> {
     }
   }
 
+  /// 🎴 翻開卡牌
   void _onCardTap(int index) {
     if (_isChecking || _flipped[index] || _matched[index]) return;
 
-    // 開始計時（只在第一張牌翻開時開始）
+    // ⏳ 只有第一次翻牌時才開始計時
     if (_elapsedTime == 0) {
       _startTimer();
     }
@@ -100,7 +103,7 @@ class MemoryGamePageState extends State<MemoryGamePage> {
             _secondSelected = null;
             _isChecking = false;
 
-            // 🎉 若全部配對成功，結束計時並顯示完成訊息
+            // 🎉 全部配對成功，遊戲完成
             if (_matched.every((matched) => matched)) {
               _gameCompleted();
             }
@@ -110,11 +113,12 @@ class MemoryGamePageState extends State<MemoryGamePage> {
     });
   }
 
+  /// 🎉 遊戲完成
   void _gameCompleted() {
-    _timer?.cancel(); // 停止計時
+    _timer?.cancel();
     _confettiController.play();
 
-    // 記錄最佳成績
+    // 🏆 記錄最快通關時間
     if (_bestTime == null || _elapsedTime < _bestTime!) {
       _bestTime = _elapsedTime;
     }
@@ -149,6 +153,7 @@ class MemoryGamePageState extends State<MemoryGamePage> {
     });
   }
 
+  /// 🔄 重新開始遊戲
   void _restartGame() {
     setState(() {
       _resetGame();
@@ -169,6 +174,19 @@ class MemoryGamePageState extends State<MemoryGamePage> {
       drawer: const LeftMenu(), // ✅ 加入左側選單
       body: Stack(
         children: [
+          // 🌄 背景圖片
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: const AssetImage('assets/memory_game_wallpaper.png'),
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                  const Color.fromARGB(70, 255, 255, 255), // **背景變淡**
+                  BlendMode.dstATop,
+                ),
+              ),
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -194,7 +212,7 @@ class MemoryGamePageState extends State<MemoryGamePage> {
                   ],
                 ),
                 const SizedBox(height: 10),
-                // 記憶遊戲 GRID
+                // 🎴 記憶遊戲 GRID
                 Expanded(
                   child: GridView.builder(
                     gridDelegate:
