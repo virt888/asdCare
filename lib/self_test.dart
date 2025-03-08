@@ -205,60 +205,92 @@ class SelfTestPageState extends State<SelfTestPage> {
     return Scaffold(
       appBar: const CustomAppBar(),
       drawer: const LeftMenu(),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          children: [
-            const Text(
-              "🔍 ASD 自閉症初步評估小測驗",
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                color: Colors.teal,
+      body: Stack(
+        children: [
+          // 🌄 背景圖片（透明度 70%）
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: const AssetImage(
+                  'assets/self_test_wallpaper.png',
+                ), // 📌 確保這張圖片存在
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                  const Color.fromARGB(40, 255, 255, 255), // **背景變淡**
+                  BlendMode.dstATop,
+                ),
               ),
-              textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 20),
-            Expanded(
-              child: ListView.builder(
-                itemCount: _currentQuestions.length,
-                itemBuilder: (context, index) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "${index + 1}. ${_currentQuestions[index]['question']}",
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      ...List.generate(3, (optionIndex) {
-                        return RadioListTile<int>(
-                          title: Text(
-                            _currentQuestions[index]['answers'][optionIndex],
-                          ),
-                          value: optionIndex,
-                          groupValue: _answers[index],
-                          onChanged: (value) {
-                            setState(() {
-                              _answers[index] = value!;
-                            });
-                          },
+          ),
+
+          /// **測驗內容**
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              children: [
+                const Text(
+                  "🔍 ASD 自閉症初步評估小測驗",
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.teal,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 20),
+
+                /// **📝 測驗表單（加上半透明白底）**
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.all(16.0),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.5), // 📌 半透明白底，提升可讀性
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                    child: ListView.builder(
+                      itemCount: _currentQuestions.length,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "${index + 1}. ${_currentQuestions[index]['question']}",
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            ...List.generate(3, (optionIndex) {
+                              return RadioListTile<int>(
+                                title: Text(
+                                  _currentQuestions[index]['answers'][optionIndex],
+                                ),
+                                value: optionIndex,
+                                groupValue: _answers[index],
+                                onChanged: (value) {
+                                  setState(() {
+                                    _answers[index] = value!;
+                                  });
+                                },
+                              );
+                            }),
+                            const Divider(),
+                          ],
                         );
-                      }),
-                      const Divider(),
-                    ],
-                  );
-                },
-              ),
+                      },
+                    ),
+                  ),
+                ),
+
+                /// **提交按鈕**
+                ElevatedButton(
+                  onPressed: _answers.contains(-1) ? null : _submitTest,
+                  child: const Text("提交測驗結果"),
+                ),
+              ],
             ),
-            ElevatedButton(
-              onPressed: _answers.contains(-1) ? null : _submitTest,
-              child: const Text("提交測驗結果"),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
