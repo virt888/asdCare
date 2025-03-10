@@ -18,6 +18,7 @@ dependencies:
   google_mobile_ads: ^5.3.1  # 請確保使用最新版本
   http: ^0.13.6  # ✅ 加入 http 套件
   package_info_plus: ^4.2.0  # ✅ 確保使用最新版本
+  confetti: ^0.7.0
 
 dev_dependencies:
   flutter_test:
@@ -39,6 +40,9 @@ flutter:
     - assets/asd_care_wallpaper_02.png
     - assets/asd_care_wallpaper_03.png
     - assets/asd_care_wallpaper_04.png
+    - assets/memory_game_wallpaper.png    
+    - assets/self_test_wallpaper.png
+    - assets/source_wallpaper.png
     - assets/question_icon.png
     - assets/answer_icon.png
     - assets/doctor_icon.png    

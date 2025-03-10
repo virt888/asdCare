@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'custom_app_bar.dart';
-import 'left_menu.dart';
 
 class AboutUsPage extends StatelessWidget {
   const AboutUsPage({super.key});
@@ -8,8 +6,16 @@ class AboutUsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(),
-      drawer: const LeftMenu(),
+      appBar: AppBar(
+        title: const Text(
+          '關於我們',
+          style: TextStyle(
+            // fontWeight: FontWeight.bold,
+            color: Colors.black, // ✅ 適配淺米色背景
+          ),
+        ),        
+        backgroundColor: const Color(0xFFF5E8D3),
+      ),      
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
         child: Column(

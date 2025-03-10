@@ -9,7 +9,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: const Text(
         'ASD CARE 關懷',
         style: TextStyle(
-          fontWeight: FontWeight.bold,
+          // fontWeight: FontWeight.bold,
           color: Colors.black, // ✅ 適配淺米色背景
         ),
       ),

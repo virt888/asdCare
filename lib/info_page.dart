@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'custom_app_bar.dart';
-import 'left_menu.dart';
 import 'package:flutter/services.dart';
 import 'package:yaml/yaml.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -127,8 +125,16 @@ class InfoPageState extends State<InfoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(),
-      drawer: const LeftMenu(),
+      appBar: AppBar(
+        title: const Text(
+          '深入認識 ASD 世界',
+          style: TextStyle(
+            // fontWeight: FontWeight.bold,
+            color: Colors.black, // ✅ 適配淺米色背景
+          ),
+        ),        
+        backgroundColor: const Color(0xFFF5E8D3),
+      ),      
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : Container(
