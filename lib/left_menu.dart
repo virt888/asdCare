@@ -9,7 +9,8 @@ import 'info_page.dart';
 import 'support_page.dart';
 
 import 'memory_game.dart'; // ✅ 新增 記憶翻牌遊戲
-import 'self_test.dart'; // ✅ 新增 記憶翻牌遊戲
+import 'self_test.dart'; // ✅ 新增 小測驗
+import 'source_page.dart'; // 
 
 class LeftMenu extends StatefulWidget {
   const LeftMenu({super.key});
@@ -144,6 +145,16 @@ class LeftMenuState extends State<LeftMenu> {
               launchUrl(whatsappUri, mode: LaunchMode.externalApplication);
             },
           ),
+          ListTile(
+            leading: const Icon(Icons.medical_services),
+            title: const Text('醫學資訊來源'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SourcePage()),
+              );
+            },
+          ),          
           ListTile(
             leading: const Icon(Icons.info_outline),
             title: const Text('關於我們'),

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
-import 'custom_app_bar.dart';
-import 'left_menu.dart';
 
 class SelfTestPage extends StatefulWidget {
   const SelfTestPage({super.key});
@@ -203,8 +201,16 @@ class SelfTestPageState extends State<SelfTestPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(),
-      drawer: const LeftMenu(),
+      appBar: AppBar(
+        title: const Text(
+          '小測驗',
+          style: TextStyle(
+            // fontWeight: FontWeight.bold,
+            color: Colors.black, // ✅ 適配淺米色背景
+          ),
+        ),        
+        backgroundColor: const Color(0xFFF5E8D3),
+      ),
       body: Stack(
         children: [
           // 🌄 背景圖片（透明度 70%）
@@ -244,9 +250,9 @@ class SelfTestPageState extends State<SelfTestPage> {
                   child: Container(
                     padding: const EdgeInsets.all(16.0),
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.5), // 📌 半透明白底，提升可讀性
+                      color: const Color.fromARGB(128, 255, 255, 255), // ✅ 128 = 50% 透明度
                       borderRadius: BorderRadius.circular(12.0),
-                    ),
+                    ),                    
                     child: ListView.builder(
                       itemCount: _currentQuestions.length,
                       itemBuilder: (context, index) {

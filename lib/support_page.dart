@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'custom_app_bar.dart';
-import 'left_menu.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/services.dart';
 import 'package:yaml/yaml.dart';
@@ -79,8 +77,16 @@ class SupportPageState extends State<SupportPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(),
-      drawer: const LeftMenu(),
+      appBar: AppBar(
+        title: const Text(
+          '資訊/支援',
+          style: TextStyle(
+            // fontWeight: FontWeight.bold,
+            color: Colors.black, // ✅ 適配淺米色背景
+          ),
+        ),        
+        backgroundColor: const Color(0xFFF5E8D3),
+      ),
       body: Container(
         width: double.infinity,
         height: double.infinity,

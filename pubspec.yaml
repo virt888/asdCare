@@ -42,6 +42,7 @@ flutter:
     - assets/asd_care_wallpaper_04.png
     - assets/memory_game_wallpaper.png    
     - assets/self_test_wallpaper.png
+    - assets/source_wallpaper.png
     - assets/question_icon.png
     - assets/answer_icon.png
     - assets/doctor_icon.png    

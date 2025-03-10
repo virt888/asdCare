@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:confetti/confetti.dart';
 import 'dart:async';
-import 'custom_app_bar.dart';
-import 'left_menu.dart';
 
 class MemoryGamePage extends StatefulWidget {
   const MemoryGamePage({super.key});
@@ -170,8 +168,16 @@ class MemoryGamePageState extends State<MemoryGamePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(),
-      drawer: const LeftMenu(), // ✅ 加入左側選單
+      appBar: AppBar(
+        title: const Text(
+          '小遊戲',
+          style: TextStyle(
+            // fontWeight: FontWeight.bold,
+            color: Colors.black, // ✅ 適配淺米色背景
+          ),
+        ),        
+        backgroundColor: const Color(0xFFF5E8D3),
+      ),
       body: Stack(
         children: [
           // 🌄 背景圖片
