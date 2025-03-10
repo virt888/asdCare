@@ -11,6 +11,8 @@ import 'support_page.dart';
 import 'memory_game.dart'; // ✅ 新增 記憶翻牌遊戲
 import 'self_test.dart'; // ✅ 新增 小測驗
 import 'source_page.dart'; // 
+import 'running_game.dart'; // 
+import 'package:flame/game.dart';
 
 class LeftMenu extends StatefulWidget {
   const LeftMenu({super.key});
@@ -87,7 +89,7 @@ class LeftMenuState extends State<LeftMenu> {
           ),
           ListTile(
             leading: const Icon(Icons.memory),
-            title: const Text('小遊戲'),
+            title: const Text('小遊戲-記憶'),
             onTap: () {
               Navigator.push(
                 context,
@@ -97,6 +99,24 @@ class LeftMenuState extends State<LeftMenu> {
               );
             },
           ),
+          ListTile(
+            leading: const Icon(Icons.directions_run),
+            title: const Text('小遊戲-跳躍'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder:
+                      (context) => Scaffold(
+                        appBar: AppBar(title: const Text("小遊戲-跳躍")),
+                        body: GameWidget(
+                          game: RunningGame(),
+                        ), // ✅ 用 GameWidget 包住
+                      ),
+                ),
+              );
+            },
+          ),              
           ListTile(
             leading: const Icon(Icons.assignment), // ✅ 使用問卷圖標
             title: const Text('小測驗'),

@@ -2,7 +2,7 @@ name: asd_care_app
 description: "ASD Care App"
 publish_to: 'none' 
 
-version: 1.0.0+1
+version: 1.1.0+1
 
 environment:
   sdk: ^3.7.0
@@ -19,6 +19,8 @@ dependencies:
   http: ^0.13.6  # ✅ 加入 http 套件
   package_info_plus: ^4.2.0  # ✅ 確保使用最新版本
   confetti: ^0.7.0
+  flame: ^1.14.0  # ✅ 確保使用最新版本！
+  flame_audio: ^2.1.5  # ✅ 遊戲音效 (可選)  
 
 dev_dependencies:
   flutter_test:
@@ -48,7 +50,14 @@ flutter:
     - assets/doctor_icon.png    
     - assets/info_icon.png
     - assets/faqs.yaml
-    - assets/reference_urls.yaml        
+    - assets/reference_urls.yaml
+    - assets/images/farm_background_1.png
+    - assets/images/farm_background_2.png
+    - assets/images/player_child.png
+    - assets/images/sheep_obstacle.png
+    - assets/images/heart.png
+    - assets/audio/jump.m4a
+    - assets/audio/bgm.m4a                
 
 flutter_icons:
   android: true
