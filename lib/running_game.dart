@@ -32,13 +32,13 @@ class RunningGamePage extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.volume_off),
             onPressed: () {
-              FlameAudio.bgm.setVolume(0);
+              FlameAudio.bgm.audioPlayer.setVolume(0.0); // ✅ 修正音量控制
             },
           ),
           IconButton(
             icon: const Icon(Icons.volume_up),
             onPressed: () {
-              FlameAudio.bgm.setVolume(1);
+              FlameAudio.bgm.audioPlayer.setVolume(1.0); // ✅ 修正音量控制
             },
           ),
         ],
