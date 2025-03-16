@@ -78,7 +78,7 @@ class InfoPageState extends State<InfoPage> {
   void _loadInterstitialAd() {
     InterstitialAd.load(
       // adUnitId: 'ca-app-pub-3940256099942544/1033173712', // 測試 ID
-      adUnitId: 'ca-app-pub-8691410470836032~6319886404', // REAL ID
+      adUnitId: 'ca-app-pub-8691410470836032/8754478052', // REAL ID
       request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (InterstitialAd ad) {
@@ -132,44 +132,47 @@ class InfoPageState extends State<InfoPage> {
             // fontWeight: FontWeight.bold,
             color: Colors.black, // ✅ 適配淺米色背景
           ),
-        ),        
+        ),
         backgroundColor: const Color(0xFFF5E8D3),
-      ),      
-      body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : Container(
-              width: double.infinity,
-              height: double.infinity,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: const AssetImage('assets/asd_care_wallpaper_03.png'),
-                  fit: BoxFit.cover,
-                  colorFilter: ColorFilter.mode(
-                    const Color.fromARGB(100, 255, 255, 255),
-                    BlendMode.dstATop,
+      ),
+      body:
+          _isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : Container(
+                width: double.infinity,
+                height: double.infinity,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: const AssetImage('assets/asd_care_wallpaper_03.png'),
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                      const Color.fromARGB(100, 255, 255, 255),
+                      BlendMode.dstATop,
+                    ),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: ListView(
+                    children: [
+                      const Text(
+                        "🕰️ 內容將定期更新，請留意最新資訊",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.teal,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 20),
+                      ...faqs.keys
+                          .map((section) => buildSection(section))
+                          .toList(),
+                      const SizedBox(height: 30),
+                    ],
                   ),
                 ),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: ListView(
-                  children: [
-                    const Text(
-                      "🕰️ 內容將定期更新，請留意最新資訊",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.teal,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 20),
-                    ...faqs.keys.map((section) => buildSection(section)).toList(),
-                    const SizedBox(height: 30),
-                  ],
-                ),
-              ),
-            ),
     );
   }
 
@@ -243,22 +246,23 @@ class InfoPageState extends State<InfoPage> {
                     color: Colors.orange.shade200,
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: _isAdWatched
-                      ? Text(
-                          "答： ${faq['answer']}",
-                          style: const TextStyle(fontSize: 16),
-                        )
-                      : GestureDetector(
-                          onTap: _showAdAndUnlockAnswers,
-                          child: const Text(
-                            "🔒 請觀看廣告解鎖內容",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.red,
+                  child:
+                      _isAdWatched
+                          ? Text(
+                            "答： ${faq['answer']}",
+                            style: const TextStyle(fontSize: 16),
+                          )
+                          : GestureDetector(
+                            onTap: _showAdAndUnlockAnswers,
+                            child: const Text(
+                              "🔒 請觀看廣告解鎖內容",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.red,
+                              ),
                             ),
                           ),
-                        ),
                 ),
               ),
               const SizedBox(width: 8),
