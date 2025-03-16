@@ -1,6 +1,6 @@
 // This is a generated file; do not edit or check into version control.
-FLUTTER_ROOT=/Users/barrytji/Documents/barry/hkland/src_infoex/flutter
-FLUTTER_APPLICATION_PATH=/Users/barrytji/Documents/barry/hkland/src_infoex/asdCare
+FLUTTER_ROOT=/Users/hamo/mac_local/flutter_workspace/flutter
+FLUTTER_APPLICATION_PATH=/Users/hamo/mac_local/flutter_workspace/asdCare
 COCOAPODS_PARALLEL_CODE_SIGN=true
 FLUTTER_BUILD_DIR=build
 FLUTTER_BUILD_NAME=1.0.1
