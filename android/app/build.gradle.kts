@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.infoex.asdCare"
+    namespace = "com.example"
 
     compileSdk = 34 // ✅ 直接 Hardcode
     ndkVersion = "27.0.12077973" // ✅ 直接 Hardcode NDK 版本
@@ -22,7 +22,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.example.asd_care_app"
+        applicationId = "com.infoex.asdCare"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = 21
