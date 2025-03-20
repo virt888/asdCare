@@ -1,3 +1,6 @@
+import java.util.Properties
+import java.io.FileInputStream
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -31,11 +34,36 @@ android {
         versionName = flutter.versionName
     }
 
+    signingConfigs {
+        create("release") {
+            val keystorePropertiesFile = file("key.properties") // ✅ 這樣就可以了
+            if (keystorePropertiesFile.exists()) {
+                val keystoreProperties = Properties().apply {
+                    load(FileInputStream(keystorePropertiesFile))
+                }
+                storeFile = file(keystoreProperties["storeFile"] as String)
+                storePassword = keystoreProperties["storePassword"] as String
+                keyAlias = keystoreProperties["keyAlias"] as String
+                keyPassword = keystoreProperties["keyPassword"] as String
+            } else {
+                println("⚠️ key.properties not found, using debug signingConfig!")
+            }
+        }
+    }    
+
     buildTypes {
+        debug {
+            signingConfig = signingConfigs.getByName("debug") // ✅ 保留 Debug 簽名
+        }
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.getByName("debug")
+            isMinifyEnabled = true // ✅ 啟用代碼壓縮
+            isShrinkResources = true // ✅ 移除未使用的資源
+            signingConfig = signingConfigs.getByName("release") // ✅ 使用 release 簽名
+
+            // ✅ 這行會讓 Gradle 產生 native debug 符號
+            ndk {
+                debugSymbolLevel = "FULL"
+            }            
         }
     }
 }
