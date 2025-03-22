@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:package_info_plus/package_info_plus.dart'; // ✅ 新增這個
+import 'package:easy_localization/easy_localization.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'home_page.dart';
 import 'about_us.dart';
@@ -182,9 +184,24 @@ class LeftMenuState extends State<LeftMenu> {
                       title: const Text('語言 / Language'),
                       trailing: PopupMenuButton<String>(
                         icon: const Icon(Icons.arrow_drop_down),
-                        onSelected: (value) {
-                          // 🧠 根據選擇切換語言（你可用 setLocale / context 來實作）
-                          print('選擇語言: $value');
+                        onSelected: (value) async {
+                          Locale newLocale;
+                          switch (value) {
+                            case 'zh-TW':
+                              newLocale = const Locale('zh', 'HK');
+                              break;
+                            case 'zh-CN':
+                              newLocale = const Locale('zh', 'CN');
+                              break;
+                            case 'en':
+                              newLocale = const Locale('en');
+                              break;
+                            default:
+                              newLocale = const Locale('en');
+                          }
+                          await context.setLocale(newLocale);
+                          final prefs = await SharedPreferences.getInstance();
+                          await prefs.setString('language_code', value);
                         },
                         itemBuilder:
                             (context) => [

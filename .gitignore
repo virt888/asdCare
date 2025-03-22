@@ -5,3 +5,5 @@
 .flutter-plugins
 android/local.properties
 
+/ios/Runner.xcworkspace
+.flutter-plugins-dependencies
