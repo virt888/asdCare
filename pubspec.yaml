@@ -10,6 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations: 
+    sdk: flutter  # ✅ 加上這行    
   cupertino_icons: ^1.0.8
   webview_flutter: ^4.4.4  # 添加 WebView 支援  
   font_awesome_flutter: ^10.6.0
@@ -19,6 +21,9 @@ dependencies:
   http: ^0.13.6  # ✅ 加入 http 套件
   package_info_plus: ^4.2.0  # ✅ 確保使用最新版本
   confetti: ^0.7.0
+  easy_localization: ^3.0.0
+  easy_localization_loader: ^1.0.1
+  shared_preferences: ^2.2.2
 
 dev_dependencies:
   flutter_test:
@@ -48,7 +53,11 @@ flutter:
     - assets/doctor_icon.png    
     - assets/info_icon.png
     - assets/faqs.yaml
-    - assets/reference_urls.yaml        
+    - assets/reference_urls.yaml
+    - assets/translations/   
+
+easy_localization:
+  assetLoader: YamlAssetLoader
 
 flutter_icons:
   android: true

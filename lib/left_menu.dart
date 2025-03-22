@@ -113,42 +113,6 @@ class LeftMenuState extends State<LeftMenu> {
                       },
                     ),
                     ListTile(
-                      leading: const Icon(Icons.memory),
-                      title: const Text('小遊戲'),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const MemoryGamePage(),
-                          ), // ✅ 記憶翻牌遊戲
-                        );
-                      },
-                    ),
-                    ListTile(
-                      leading: const Icon(Icons.memory),
-                      title: const Text('小遊戲'),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const MemoryGamePage(),
-                          ), // ✅ 記憶翻牌遊戲
-                        );
-                      },
-                    ),
-                    ListTile(
-                      leading: const Icon(Icons.memory),
-                      title: const Text('小遊戲'),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const MemoryGamePage(),
-                          ), // ✅ 記憶翻牌遊戲
-                        );
-                      },
-                    ),
-                    ListTile(
                       leading: const Icon(Icons.assignment), // ✅ 使用問卷圖標
                       title: const Text('小測驗'),
                       onTap: () {
@@ -212,6 +176,32 @@ class LeftMenuState extends State<LeftMenu> {
                           ),
                         );
                       },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.language),
+                      title: const Text('語言 / Language'),
+                      trailing: PopupMenuButton<String>(
+                        icon: const Icon(Icons.arrow_drop_down),
+                        onSelected: (value) {
+                          // 🧠 根據選擇切換語言（你可用 setLocale / context 來實作）
+                          print('選擇語言: $value');
+                        },
+                        itemBuilder:
+                            (context) => [
+                              const PopupMenuItem(
+                                value: 'zh-TW',
+                                child: Text('繁體中文'),
+                              ),
+                              const PopupMenuItem(
+                                value: 'zh-CN',
+                                child: Text('简体中文'),
+                              ),
+                              const PopupMenuItem(
+                                value: 'en',
+                                child: Text('English'),
+                              ),
+                            ],
+                      ),
                     ),
                     const SizedBox(height: 16),
                     Align(

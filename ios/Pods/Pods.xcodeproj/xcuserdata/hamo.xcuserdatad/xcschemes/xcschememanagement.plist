@@ -39,6 +39,21 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>ReachabilitySwift-ReachabilitySwift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>ReachabilitySwift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>connectivity_plus.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>google_mobile_ads-google_mobile_ads.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -50,6 +65,26 @@
 			<false/>
 		</dict>
 		<key>package_info_plus.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>path_provider_foundation-path_provider_foundation_privacy.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>path_provider_foundation.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>shared_preferences_foundation-shared_preferences_foundation_privacy.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>shared_preferences_foundation.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
