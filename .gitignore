@@ -11,3 +11,5 @@ android/local.properties
 /macos
 /windows
 /ios/Runner.xcworkspace
+/ios/Runner.xcworkspace/xcuserdata/hamo.xcuserdatad
+.flutter-plugins-dependencies
