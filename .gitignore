@@ -10,3 +10,4 @@ android/local.properties
 /ios/Pods
 /macos
 /windows
+/ios/Runner.xcworkspace

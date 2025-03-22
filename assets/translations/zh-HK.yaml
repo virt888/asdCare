@@ -1,4 +1,8 @@
 enter: "進入"
-faq:
-  title: "常見問題"
-  question1: "什麼是自閉症？"
+app.bar.title: "ASD CARE 關懷"
+home.page.heading.1: "這是一個為 ASD 家屬而設的關懷平台"
+home.page.heading.2: "我們提供資訊與經驗分享，針對香港政府資源，讓 ASD 家屬找到方向"
+home.page.heading.3: "社區互動 | 問答支持 | 免費使用"
+home.page.button.1: "深入認識 ASD 世界"
+home.page.button.2: "加入 Facebook 社區"
+home.page.button.3: "加入 WhatsApp 諮詢"

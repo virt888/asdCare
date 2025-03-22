@@ -1,4 +1,8 @@
 enter: "进入"
-faq:
-  title: "主页"
-  question1: "常见问题"
+app.bar.title: "ASD CARE 关怀"
+home.page.heading.1: "这是一个为 ASD 家属打造的关怀平台"
+home.page.heading.2: "我们提供资讯与经验分享，聚焦香港政府资源，助 ASD 家属找到方向"
+home.page.heading.3: "社区互动 | 问答支持 | 免费使用"
+home.page.button.1: "深入了解 ASD 世界"
+home.page.button.2: "加入 Facebook 社区"
+home.page.button.3: "加入 WhatsApp 咨询"

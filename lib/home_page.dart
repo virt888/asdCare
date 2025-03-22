@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'custom_app_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'left_menu.dart'; 
+import 'left_menu.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'info_page.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -11,7 +12,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(),
+      appBar: CustomAppBar(),
       drawer: const LeftMenu(),
       body: Container(
         width: double.infinity,
@@ -33,34 +34,51 @@ class HomePage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 30),
-              const Text(
-                '這是一個為 ASD 家屬而設的關懷平台',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.teal),
+              Text(
+                'home.page.heading.1'.tr(),
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.teal,
+                ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 10),
-              const Text(
-                '我們提供資訊與經驗分享，針對香港政府資源，讓 ASD 家屬找到方向。',
+              Text(
+                'home.page.heading.2'.tr(),
                 style: TextStyle(fontSize: 16),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 20),
-              const Text(
-                '社區互動 | 問答支持 | 免費使用',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.orange),
+              Text(
+                'home.page.heading.3'.tr(),
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.orange,
+                ),
                 textAlign: TextAlign.center,
               ),
               const Spacer(),
               ElevatedButton.icon(
                 icon: const Icon(Icons.info, color: Colors.white),
-                label: const Text(
-                  '深入認識 ASD 世界',
-                  style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                label: Text(
+                  'home.page.button.1'.tr(),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.teal,
-                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                  textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 40,
+                    vertical: 15,
+                  ),
+                  textStyle: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 onPressed: () {
                   Navigator.push(
@@ -72,34 +90,59 @@ class HomePage extends StatelessWidget {
               const SizedBox(height: 15),
               ElevatedButton.icon(
                 icon: const Icon(Icons.facebook, color: Colors.white),
-                label: const Text(
-                  '加入 Facebook 社區',
-                  style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                label: Text(
+                  'home.page.button.2'.tr(),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
-                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                  textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 40,
+                    vertical: 15,
+                  ),
+                  textStyle: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 onPressed: () {
-                  final Uri facebookUri = Uri.parse('https://www.facebook.com/profile.php?id=61573752815081');
+                  final Uri facebookUri = Uri.parse(
+                    'https://www.facebook.com/profile.php?id=61573752815081',
+                  );
                   launchUrl(facebookUri, mode: LaunchMode.externalApplication);
                 },
               ),
               const SizedBox(height: 15),
               ElevatedButton.icon(
-                icon: const FaIcon(FontAwesomeIcons.whatsapp, color: Colors.white),
-                label: const Text(
-                  '加入 WhatsApp 諮詢',
-                  style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                icon: const FaIcon(
+                  FontAwesomeIcons.whatsapp,
+                  color: Colors.white,
+                ),
+                label: Text(
+                  'home.page.button.3'.tr(),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.green,
-                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                  textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 40,
+                    vertical: 15,
+                  ),
+                  textStyle: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 onPressed: () {
-                  final Uri whatsappUri = Uri.parse('https://chat.whatsapp.com/LoV9rBJ18KCGSDNJRFLmws?text=%E6%88%91%E6%83%B3%E8%AB%8B%E5%95%8F%E4%B8%80%E4%B8%8BASD%20%E8%87%AA%E9%96%89%E7%97%87%E5%82%BE%E5%90%91%E7%9A%84%E6%9B%B4%E5%A4%9A%E8%B3%87%E8%A8%8A');
+                  final Uri whatsappUri = Uri.parse(
+                    'https://chat.whatsapp.com/LoV9rBJ18KCGSDNJRFLmws?text=%E6%88%91%E6%83%B3%E8%AB%8B%E5%95%8F%E4%B8%80%E4%B8%8BASD%20%E8%87%AA%E9%96%89%E7%97%87%E5%82%BE%E5%90%91%E7%9A%84%E6%9B%B4%E5%A4%9A%E8%B3%87%E8%A8%8A',
+                  );
                   launchUrl(whatsappUri, mode: LaunchMode.externalApplication);
                 },
               ),
