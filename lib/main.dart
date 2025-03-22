@@ -78,7 +78,7 @@ void main() async {
       assetLoader: CustomYamlAssetLoader(),
       fallbackLocale: const Locale('en'),
       startLocale: startLocale,
-      child: const ASDCareApp(),
+      child: ASDCareApp(),
     ),
   );
 }
@@ -92,7 +92,7 @@ class ASDCareApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'ASD CARE',
       theme: ThemeData(primarySwatch: Colors.teal),
-      home: const MainPage(),
+      home: MainPage(),
       locale: context.locale,
       supportedLocales: context.supportedLocales,
       localizationsDelegates: context.localizationDelegates,
