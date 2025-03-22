@@ -11,7 +11,7 @@ plugins {
 android {
     namespace = "com.infoex"
 
-    compileSdk = 34 // ✅ 直接 Hardcode
+    compileSdk = 35 // ✅ 直接 Hardcode
     ndkVersion = "27.0.12077973" // ✅ 直接 Hardcode NDK 版本
 
     compileOptions {

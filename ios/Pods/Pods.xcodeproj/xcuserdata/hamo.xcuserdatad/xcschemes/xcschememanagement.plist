@@ -39,12 +39,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>ReachabilitySwift-ReachabilitySwift.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>ReachabilitySwift.xcscheme</key>
+		<key>connectivity_plus-connectivity_plus_privacy.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -60,6 +55,11 @@
 			<false/>
 		</dict>
 		<key>google_mobile_ads.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>package_info_plus-package_info_plus_privacy.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
