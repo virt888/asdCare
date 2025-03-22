@@ -7,7 +7,6 @@ export "FLUTTER_TARGET=/Users/hamo/mac_local/flutter_workspace/asdCare/lib/main.
 export "FLUTTER_BUILD_DIR=build"
 export "FLUTTER_BUILD_NAME=1.0.5"
 export "FLUTTER_BUILD_NUMBER=1"
-export "CONFIGURATION_BUILD_DIR=/Users/hamo/mac_local/flutter_workspace/asdCare/build/ios/iphoneos"
 export "DART_OBFUSCATION=false"
 export "TRACK_WIDGET_CREATION=true"
 export "TREE_SHAKE_ICONS=false"
