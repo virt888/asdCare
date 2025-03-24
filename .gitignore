@@ -13,3 +13,7 @@ android/local.properties
 /ios/Runner.xcworkspace
 /ios/Runner.xcworkspace/xcuserdata/hamo.xcuserdatad
 .flutter-plugins-dependencies
+.flutter-plugins-dependencies
+.flutter-plugins
+.idea/workspace.xml
+android/local.properties
