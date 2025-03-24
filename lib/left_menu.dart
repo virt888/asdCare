@@ -68,7 +68,7 @@ class LeftMenuState extends State<LeftMenu> {
                   children: [
                     ListTile(
                       leading: const Icon(Icons.home),
-                      title: const Text('主頁'),
+                      title: Text('left.menu.home'.tr()),
                       onTap: () {
                         Navigator.push(
                           context,
@@ -78,7 +78,7 @@ class LeftMenuState extends State<LeftMenu> {
                     ),
                     ListTile(
                       leading: const Icon(Icons.info),
-                      title: const Text('深入認識 ASD 世界'),
+                      title: Text('left.menu.asd.world'.tr()),
                       onTap: () {
                         Navigator.push(
                           context,
@@ -90,7 +90,7 @@ class LeftMenuState extends State<LeftMenu> {
                     ),
                     ListTile(
                       leading: const Icon(Icons.support),
-                      title: const Text('資訊/支援'),
+                      title: Text('left.menu.support'.tr()),
                       onTap: () {
                         Navigator.push(
                           context,
@@ -102,7 +102,7 @@ class LeftMenuState extends State<LeftMenu> {
                     ),
                     ListTile(
                       leading: const Icon(Icons.memory),
-                      title: const Text('小遊戲'),
+                      title: Text('left.menu.game.1'.tr()),
                       onTap: () {
                         Navigator.push(
                           context,
@@ -114,7 +114,7 @@ class LeftMenuState extends State<LeftMenu> {
                     ),
                     ListTile(
                       leading: const Icon(Icons.assignment), // ✅ 使用問卷圖標
-                      title: const Text('小測驗'),
+                      title: Text('left.menu.test'.tr()),
                       onTap: () {
                         Navigator.push(
                           context,
@@ -126,7 +126,7 @@ class LeftMenuState extends State<LeftMenu> {
                     ),
                     ListTile(
                       leading: const Icon(Icons.facebook),
-                      title: const Text('FACEBOOK 社區'),
+                      title: Text('left.menu.facebook'.tr()),
                       onTap: () {
                         final Uri facebookUri = Uri.parse(
                           'https://www.facebook.com/profile.php?id=61573752815081',
@@ -142,10 +142,10 @@ class LeftMenuState extends State<LeftMenu> {
                         FontAwesomeIcons.whatsapp,
                         color: Colors.black,
                       ),
-                      title: const Text('WHATSAPP 諮詢'),
+                      title: Text('left.menu.whatsapp'.tr()),
                       onTap: () {
                         final Uri whatsappUri = Uri.parse(
-                          'https://chat.whatsapp.com/KSaVDBs9E9ABn34UezfgjG',
+                          'https://chat.whatsapp.com/KSaVDBs9E9ABn34UezfgjG?text=我想請問一下ASD自閉症傾向的更多資訊',
                         );
                         launchUrl(
                           whatsappUri,
@@ -155,7 +155,7 @@ class LeftMenuState extends State<LeftMenu> {
                     ),
                     ListTile(
                       leading: const Icon(Icons.medical_services),
-                      title: const Text('醫學資訊來源'),
+                      title: Text('left.menu.source'.tr()),
                       onTap: () {
                         Navigator.push(
                           context,
@@ -167,7 +167,7 @@ class LeftMenuState extends State<LeftMenu> {
                     ),
                     ListTile(
                       leading: const Icon(Icons.info_outline),
-                      title: const Text('關於我們'),
+                      title: Text('left.menu.about'.tr()),
                       onTap: () {
                         Navigator.push(
                           context,
@@ -179,7 +179,7 @@ class LeftMenuState extends State<LeftMenu> {
                     ),
                     ListTile(
                       leading: const Icon(Icons.language),
-                      title: const Text('語言 / Language'),
+                      title: Text('left.menu.language'.tr()),
                       trailing: PopupMenuButton<String>(
                         icon: const Icon(Icons.arrow_drop_down),
                         onSelected: (value) async {
@@ -224,7 +224,7 @@ class LeftMenuState extends State<LeftMenu> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          '        版本號: v$appVersion',
+                          'left.menu.version'.tr(namedArgs: {'appVersion': appVersion}),
                           style: const TextStyle(
                             fontSize: 12,
                             color: Colors.grey,

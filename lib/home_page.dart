@@ -141,7 +141,7 @@ class HomePage extends StatelessWidget {
                 ),
                 onPressed: () {
                   final Uri whatsappUri = Uri.parse(
-                    'https://chat.whatsapp.com/KSaVDBs9E9ABn34UezfgjG',
+                    'https://chat.whatsapp.com/KSaVDBs9E9ABn34UezfgjG?text=我想請問一下ASD自閉症傾向的更多資訊',
                   );
                   launchUrl(whatsappUri, mode: LaunchMode.externalApplication);
                 },

@@ -53,7 +53,7 @@ flutter:
     - assets/answer_icon.png
     - assets/doctor_icon.png    
     - assets/info_icon.png
-    - assets/faqs.yaml
+    - assets/faqs/
     - assets/reference_urls.yaml
     - assets/translations/   
 

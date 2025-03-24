@@ -45,12 +45,12 @@ class SupportPageState extends State<SupportPage> {
           _isLoading = false;
         });
 
-        log("✅ 成功從 GitHub 下載 Reference Links");
+        debugPrint("✅ 成功從 GitHub 下載 Reference Links");
       } else {
         throw Exception("❌ 網絡請求失敗，使用本地數據");
       }
     } catch (e) {
-      log("⚠️ 下載 Reference Links 時出錯，使用本地數據: $e");
+      debugPrint("⚠️ 下載 Reference Links 時出錯，使用本地數據: $e");
       _loadLocalReferenceLinks();
     }
   }
@@ -71,7 +71,7 @@ class SupportPageState extends State<SupportPage> {
       _isLoading = false;
     });
 
-    log("📂 使用本地 Reference Links");
+    debugPrint("📂 使用本地 Reference Links");
   }
 
   @override
