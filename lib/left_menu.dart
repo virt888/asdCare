@@ -23,6 +23,7 @@ class LeftMenu extends StatefulWidget {
 
 class LeftMenuState extends State<LeftMenu> {
   String appVersion = "載入中..."; // 預設值
+  final GlobalKey<PopupMenuButtonState<String>> _languageMenuKey = GlobalKey<PopupMenuButtonState<String>>();
 
   @override
   void initState() {
@@ -178,6 +179,8 @@ class LeftMenuState extends State<LeftMenu> {
                       },
                     ),
                     PopupMenuButton<String>(
+                      key: _languageMenuKey,
+                      offset: const Offset(69, 0), // 根據需要調整偏移量
                       onSelected: (value) async {
                         Locale newLocale;
                         switch (value) {
@@ -212,6 +215,9 @@ class LeftMenuState extends State<LeftMenu> {
                         ),
                       ],
                       child: ListTile(
+                        onTap: () {
+                          _languageMenuKey.currentState?.showButtonMenu();
+                        },
                         leading: const Icon(Icons.language),
                         title: Text('left.menu.language'.tr()),
                         trailing: const Icon(Icons.arrow_drop_down),
