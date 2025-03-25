@@ -18,12 +18,16 @@
   "source_files": "webview_flutter_wkwebview/Sources/webview_flutter_wkwebview/**/*.swift",
   "ios": {
     "dependencies": {
-      "Flutter": []
+      "Flutter": [
+
+      ]
     }
   },
   "osx": {
     "dependencies": {
-      "FlutterMacOS": []
+      "FlutterMacOS": [
+
+      ]
     }
   },
   "platforms": {
