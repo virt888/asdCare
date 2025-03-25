@@ -5,6 +5,7 @@ import 'package:yaml/yaml.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'dart:developer';
+import 'package:easy_localization/easy_localization.dart';
 
 class SupportPage extends StatefulWidget {
   const SupportPage({super.key});
@@ -26,7 +27,7 @@ class SupportPageState extends State<SupportPage> {
   void _fetchReferenceLinks() async {
     try {
       final response = await http.get(
-        Uri.parse('https://virt888.github.io/asdCare_files/reference_urls.yaml'),
+        Uri.parse('support.page.url.1'.tr()),
       ).timeout(const Duration(seconds: 3)); // ✅ 設置 3 秒 Timeout
 
       if (response.statusCode == 200) {
@@ -56,7 +57,9 @@ class SupportPageState extends State<SupportPage> {
   }
 
   void _loadLocalReferenceLinks() async {
-    final String response = await rootBundle.loadString('assets/reference_urls.yaml');
+
+    final String localFile = 'support.page.url.2'.tr();
+    final String response = await rootBundle.loadString(localFile);
     final YamlMap data = loadYaml(response);
 
     setState(() {
@@ -78,8 +81,8 @@ class SupportPageState extends State<SupportPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          '資訊/支援',
+        title: Text(
+          'support.page.app.bar'.tr(),
           style: TextStyle(
             // fontWeight: FontWeight.bold,
             color: Colors.black, // ✅ 適配淺米色背景
@@ -114,8 +117,8 @@ class SupportPageState extends State<SupportPage> {
                     height: 48,
                   ),
                   const SizedBox(width: 10),
-                  const Text(
-                    "故事例子 （一）",
+                  Text(
+                    "support.page.story.1.title".tr(),
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -125,29 +128,32 @@ class SupportPageState extends State<SupportPage> {
                 ],
               ),
               const SizedBox(height: 10),
-              _buildMessageBox("當發現孩子可能有 ASD，家長第一時間應該冷靜，了解應該走的流程，儘早安排支援！"),
+              _buildMessageBox("support.page.story.1.title.content".tr()),
               const SizedBox(height: 20),
 
               _buildStep(
-                "👶 1. 兒科醫生的初步診斷",
-                "🔹 1 歲時打疫苗，醫生建議我們帶小孩看 ASD 專科。\n🔹 1.5 歲時醫生再提醒，我們才開始重視。",
+                "support.page.story.1.step.1.title".tr(),
+                "support.page.story.1.step.1.content".tr(),
               ),
               _buildStep(
-                "🩺 2. 專科醫生評估（診斷報告很重要！）",
-                "🔹 診斷報告是申請政府資助和學前服務的關鍵！\n🔹 有保險的可考慮私家醫生，無保險則需排期到公立醫院。",
+                "support.page.story.1.step.2.title".tr(),
+                "support.page.story.1.step.2.content".tr(),
               ),
               _buildStep(
-                "📂 3. 診斷後立即申請政府資源",
-                "🔹 拿著報告到社會福利署（社署）登記。\n🔹 申請學前特殊教育支援（E 位、S 位等）。",
-              ),
-              _buildStep("🏥 4. 別忘了到醫院排期", "🔹 我們當時忽略了，原來政府醫院醫生的報告有額外補貼！"),
-              _buildStep(
-                "🎓 5. 特殊學校 or 主流學校？",
-                "🔹 4 歲時，我們終於安排孩子進入特殊學校。\n🔹 之前在主流學校，但發現孩子需要小班教學。",
+                "support.page.story.1.step.3.title".tr(),
+                "support.page.story.1.step.3.content".tr(),
               ),
               _buildStep(
-                "💡 6. 最重要的是家長的態度",
-                "🔹 無需害怕 ASD，最重要的是早發現、早介入、早支援！\n🔹 整理好資料，儘力幫助孩子適應社會。",
+                "support.page.story.1.step.4.title".tr(),
+                "support.page.story.1.step.4.content".tr(),                
+              ),
+              _buildStep(
+                "support.page.story.1.step.5.title".tr(),
+                "support.page.story.1.step.5.content".tr(),
+              ),
+              _buildStep(
+                "support.page.story.1.step.6.title".tr(),
+                "support.page.story.1.step.6.content".tr(),
               ),
 
               const SizedBox(height: 30),
@@ -179,8 +185,8 @@ class SupportPageState extends State<SupportPage> {
                           height: 30,
                         ),
                         const SizedBox(width: 10),
-                        const Text(
-                          "重要連結",
+                        Text(
+                          "support.page.url.title".tr(),
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,

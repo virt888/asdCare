@@ -54,7 +54,7 @@ flutter:
     - assets/doctor_icon.png    
     - assets/info_icon.png
     - assets/faqs/
-    - assets/reference_urls.yaml
+    - assets/supports/
     - assets/translations/   
 
 easy_localization:
