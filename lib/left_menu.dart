@@ -177,45 +177,44 @@ class LeftMenuState extends State<LeftMenu> {
                         );
                       },
                     ),
-                    ListTile(
-                      leading: const Icon(Icons.language),
-                      title: Text('left.menu.language'.tr()),
-                      trailing: PopupMenuButton<String>(
-                        icon: const Icon(Icons.arrow_drop_down),
-                        onSelected: (value) async {
-                          Locale newLocale;
-                          switch (value) {
-                            case 'zh-TW':
-                              newLocale = const Locale('zh', 'HK');
-                              break;
-                            case 'zh-CN':
-                              newLocale = const Locale('zh', 'CN');
-                              break;
-                            case 'en':
-                              newLocale = const Locale('en');
-                              break;
-                            default:
-                              newLocale = const Locale('en');
-                          }
-                          await context.setLocale(newLocale);
-                          final prefs = await SharedPreferences.getInstance();
-                          await prefs.setString('language_code', value);
-                        },
-                        itemBuilder:
-                            (context) => [
-                              const PopupMenuItem(
-                                value: 'zh-TW',
-                                child: Text('繁體中文'),
-                              ),
-                              const PopupMenuItem(
-                                value: 'zh-CN',
-                                child: Text('简体中文'),
-                              ),
-                              const PopupMenuItem(
-                                value: 'en',
-                                child: Text('English'),
-                              ),
-                            ],
+                    PopupMenuButton<String>(
+                      onSelected: (value) async {
+                        Locale newLocale;
+                        switch (value) {
+                          case 'zh-TW':
+                            newLocale = const Locale('zh', 'HK');
+                            break;
+                          case 'zh-CN':
+                            newLocale = const Locale('zh', 'CN');
+                            break;
+                          case 'en':
+                            newLocale = const Locale('en');
+                            break;
+                          default:
+                            newLocale = const Locale('en');
+                        }
+                        await context.setLocale(newLocale);
+                        final prefs = await SharedPreferences.getInstance();
+                        await prefs.setString('language_code', value);
+                      },
+                      itemBuilder: (context) => [
+                        const PopupMenuItem(
+                          value: 'zh-TW',
+                          child: Text('繁體中文'),
+                        ),
+                        const PopupMenuItem(
+                          value: 'zh-CN',
+                          child: Text('简体中文'),
+                        ),
+                        const PopupMenuItem(
+                          value: 'en',
+                          child: Text('English'),
+                        ),
+                      ],
+                      child: ListTile(
+                        leading: const Icon(Icons.language),
+                        title: Text('left.menu.language'.tr()),
+                        trailing: const Icon(Icons.arrow_drop_down),
                       ),
                     ),
                     const SizedBox(height: 16),
