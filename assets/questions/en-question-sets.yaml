@@ -1,0 +1,64 @@
+self_test:
+  questionSets:
+    -   # Question Set 1
+      - question: "Does the child respond to their own name?"
+        answers: ["✅ Yes", "⚠️ Sometimes", "❌ No"]
+      - question: "Does the child point at objects or make eye contact?"
+        answers: ["✅ Yes", "⚠️ Sometimes", "❌ No"]
+      - question: "Does the child mimic others' actions or sounds?"
+        answers: ["✅ Yes", "⚠️ Sometimes", "❌ No"]
+      - question: "Does the child show excessive fear or indifference towards strangers or new environments?"
+        answers: ["✅ No", "⚠️ Sometimes", "❌ Yes"]
+      - question: "Does the child repeatedly perform certain actions (e.g., clapping, spinning)?"
+        answers: ["✅ No", "⚠️ Sometimes", "❌ Yes"]
+      - question: "Is the child willing to play with other children?"
+        answers: ["✅ Yes", "⚠️ Sometimes", "❌ No"]
+      - question: "Is the child overly sensitive to sounds, lights, or touch?"
+        answers: ["✅ No", "⚠️ Sometimes", "❌ Yes"]
+      - question: "Does the child try to express needs through gestures?"
+        answers: ["✅ Yes", "⚠️ Sometimes", "❌ No"]
+      - question: "Does the child feel anxious about changes in routine?"
+        answers: ["✅ No", "⚠️ Sometimes", "❌ Yes"]
+      - question: "Does the child enjoy lining up toys (e.g., toy cars)?"
+        answers: ["✅ No", "⚠️ Sometimes", "❌ Yes"]
+      - question: "Does the child attempt to communicate with adults (e.g., by pointing or vocalizing)?"
+        answers: ["✅ Yes", "⚠️ Sometimes", "❌ No"]
+      - question: "Does the child enjoy hugging family members?"
+        answers: ["✅ Yes", "⚠️ Sometimes", "❌ No"]
+      - question: "Has the child ever experienced language regression?"
+        answers: ["✅ No", "⚠️ A little", "❌ Significant regression"]
+      - question: "Does the child react to changes in others' emotions?"
+        answers: ["✅ Yes", "⚠️ Sometimes", "❌ No"]
+      - question: "Does the child spend long periods fixated on a particular object or topic?"
+        answers: ["✅ No", "⚠️ Sometimes", "❌ Yes"]
+    -   # Question Set 2
+      - question: "Does the child frequently show extreme interest in specific objects?"
+        answers: ["✅ No", "⚠️ Sometimes", "❌ Yes"]
+      - question: "Does the child make meaningless sounds and repeat them frequently?"
+        answers: ["✅ No", "⚠️ Sometimes", "❌ Often"]
+      - question: "Does the child typically express needs non-verbally, for example by pulling your hand to get something?"
+        answers: ["✅ No", "⚠️ Sometimes", "❌ Yes"]
+      - question: "Does the child easily become emotionally overwhelmed by minor changes in the environment?"
+        answers: ["✅ No", "⚠️ Sometimes", "❌ Easily overwhelmed"]
+      - question: "Does the child have difficulty understanding or adapting to new environments?"
+        answers: ["✅ No", "⚠️ Sometimes", "❌ Yes"]
+      - question: "Is the child particularly sensitive to certain textures (e.g., clothing materials)?"
+        answers: ["✅ No", "⚠️ Sometimes", "❌ Yes"]
+      - question: "Does the child frequently cover their ears with hands or objects to block out sounds?"
+        answers: ["✅ No", "⚠️ Sometimes", "❌ Often"]
+      - question: "Does the child repeatedly watch the same video or listen to the same song?"
+        answers: ["✅ No", "⚠️ Sometimes", "❌ Yes"]
+      - question: "Is the child particularly interested in spinning objects (e.g., fans, wheels)?"
+        answers: ["✅ No", "⚠️ Sometimes", "❌ Yes"]
+      - question: "Does the child play with toys in unusual ways, such as only focusing on the shape of building blocks rather than assembling them?"
+        answers: ["✅ No", "⚠️ Sometimes", "❌ Yes"]
+      - question: "Does the child show a noticeable reaction to temperature changes (cold/hot)?"
+        answers: ["✅ Definitely feels it", "⚠️ Sometimes indifferent", "❌ No reaction"]
+      - question: "Is the child particularly sensitive to certain smells, to the point of strong dislike or excitement?"
+        answers: ["✅ No", "⚠️ Sometimes", "❌ Yes"]
+      - question: "Does the child have difficulty participating in group activities with other children?"
+        answers: ["✅ No", "⚠️ Sometimes", "❌ Often"]
+      - question: "Does the child have significant difficulties with sleep (e.g., trouble falling asleep or frequent awakenings)?"
+        answers: ["✅ No", "⚠️ Sometimes", "❌ Often"]
+      - question: "Does the child frequently laugh or cry without clear reason and have difficulty being soothed?"
+        answers: ["✅ No", "⚠️ Sometimes", "❌ Yes"]

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:yaml/yaml.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class SelfTestPage extends StatefulWidget {
   const SelfTestPage({super.key});
@@ -9,136 +12,7 @@ class SelfTestPage extends StatefulWidget {
 }
 
 class SelfTestPageState extends State<SelfTestPage> {
-  final List<List<Map<String, dynamic>>> _questionSets = [
-    // **🟢 問題組 1**
-    [
-      {
-        "question": "孩子是否會對自己的名字有反應？",
-        "answers": ["✅ 會", "⚠️ 偶爾", "❌ 不會"],
-      },
-      {
-        "question": "孩子會不會指著東西示意，或用眼神交流？",
-        "answers": ["✅ 會", "⚠️ 偶爾", "❌ 不會"],
-      },
-      {
-        "question": "孩子會模仿別人的動作或聲音嗎？",
-        "answers": ["✅ 會", "⚠️ 偶爾", "❌ 不會"],
-      },
-      {
-        "question": "孩子會對陌生人或新環境感到過度害怕或無動於衷嗎？",
-        "answers": ["✅ 不會", "⚠️ 偶爾", "❌ 會"],
-      },
-      {
-        "question": "孩子會不會持續重複某些行為（如拍手、轉圈）？",
-        "answers": ["✅ 不會", "⚠️ 偶爾", "❌ 會"],
-      },
-      {
-        "question": "孩子是否願意與其他小朋友一起玩？",
-        "answers": ["✅ 會", "⚠️ 偶爾", "❌ 不會"],
-      },
-      {
-        "question": "孩子對聲音、燈光或觸感會不會過度敏感？",
-        "answers": ["✅ 不會", "⚠️ 偶爾", "❌ 會"],
-      },
-      {
-        "question": "孩子是否會嘗試用手勢表達需求？",
-        "answers": ["✅ 會", "⚠️ 偶爾", "❌ 不會"],
-      },
-      {
-        "question": "孩子是否對改變日常習慣感到焦慮？",
-        "answers": ["✅ 不會", "⚠️ 偶爾", "❌ 會"],
-      },
-      {
-        "question": "孩子會不會喜歡排列玩具（例如一排車車）？",
-        "answers": ["✅ 不會", "⚠️ 偶爾", "❌ 會"],
-      },
-      {
-        "question": "孩子是否會試圖與大人溝通（例如指物、發聲）？",
-        "answers": ["✅ 會", "⚠️ 偶爾", "❌ 不會"],
-      },
-      {
-        "question": "孩子是否喜歡與家人擁抱？",
-        "answers": ["✅ 會", "⚠️ 偶爾", "❌ 不會"],
-      },
-      {
-        "question": "孩子是否曾出現過語言倒退的情況？",
-        "answers": ["✅ 沒有", "⚠️ 有一點", "❌ 明顯語言倒退"],
-      },
-      {
-        "question": "孩子是否能對他人的情緒變化有所反應？",
-        "answers": ["✅ 會", "⚠️ 偶爾", "❌ 不會"],
-      },
-      {
-        "question": "孩子會不會長時間沉迷於某一個特定的物件或主題？",
-        "answers": ["✅ 不會", "⚠️ 偶爾", "❌ 會"],
-      },
-    ],
-
-    // **🟡 問題組 2**
-    [
-      {
-        "question": "孩子是否經常對特定物品有極端的興趣？",
-        "answers": ["✅ 不會", "⚠️ 偶爾", "❌ 會"],
-      },
-      {
-        "question": "孩子是否會發出無意義的聲音，並且頻繁重複？",
-        "answers": ["✅ 不會", "⚠️ 偶爾", "❌ 經常"],
-      },
-      {
-        "question": "孩子是否習慣用非語言的方式來表達需求，例如拉著你的手去拿東西？",
-        "answers": ["✅ 不會", "⚠️ 偶爾", "❌ 會"],
-      },
-      {
-        "question": "孩子是否容易因為環境中的小變化而情緒崩潰？",
-        "answers": ["✅ 不會", "⚠️ 偶爾", "❌ 容易崩潰"],
-      },
-      {
-        "question": "孩子是否難以理解或適應新的環境？",
-        "answers": ["✅ 不會", "⚠️ 偶爾", "❌ 會"],
-      },
-      {
-        "question": "孩子是否對某些質感（如衣服布料）特別敏感？",
-        "answers": ["✅ 不會", "⚠️ 偶爾", "❌ 會"],
-      },
-      {
-        "question": "孩子是否經常用手或物品遮住耳朵，以避免某些聲音？",
-        "answers": ["✅ 不會", "⚠️ 偶爾", "❌ 經常"],
-      },
-      {
-        "question": "孩子是否經常反覆觀看同一部影片或聽同一首歌？",
-        "answers": ["✅ 不會", "⚠️ 偶爾", "❌ 會"],
-      },
-      {
-        "question": "孩子是否對旋轉的物體（如風扇、車輪）特別感興趣？",
-        "answers": ["✅ 不會", "⚠️ 偶爾", "❌ 會"],
-      },
-      {
-        "question": "孩子是否會用不尋常的方式玩玩具，例如只關心積木的形狀而不搭建？",
-        "answers": ["✅ 不會", "⚠️ 偶爾", "❌ 會"],
-      },
-      {
-        "question": "孩子是否對溫度變化（冷、熱）無明顯反應？",
-        "answers": ["✅ 會明顯感覺到", "⚠️ 偶爾不在意", "❌ 無感覺"],
-      },
-      {
-        "question": "孩子是否會對某些氣味特別敏感，甚至出現強烈的厭惡或興奮反應？",
-        "answers": ["✅ 不會", "⚠️ 偶爾", "❌ 會"],
-      },
-      {
-        "question": "孩子是否難以與其他小朋友一起參與團體活動？",
-        "answers": ["✅ 不會", "⚠️ 偶爾", "❌ 經常"],
-      },
-      {
-        "question": "孩子是否有明顯的睡眠困難（如入睡困難、易驚醒）？",
-        "answers": ["✅ 沒有", "⚠️ 偶爾", "❌ 經常"],
-      },
-      {
-        "question": "孩子是否經常無故大笑或哭泣，且難以安撫？",
-        "answers": ["✅ 不會", "⚠️ 偶爾", "❌ 會"],
-      },
-    ],
-  ];
-
+  List<List<Map<String, dynamic>>> _questionSets = [];
   List<Map<String, dynamic>> _currentQuestions = [];
   List<int> _answers = [];
   bool _isCompleted = false;
@@ -146,7 +20,34 @@ class SelfTestPageState extends State<SelfTestPage> {
   @override
   void initState() {
     super.initState();
-    _setRandomQuestionSet();
+    // 載入 YAML 資料，然後隨機抽題
+    _loadQuestionsFromYaml();
+  }
+
+  Future<void> _loadQuestionsFromYaml() async {
+    // 直接從翻譯檔中取得 YAML 檔案名稱，這個 key 在你的 translations 裡面定義，例如：
+    // en.yaml: self.test.questions: "assets/en-question-sets.yaml"
+    // zh-HK.yaml: self.test.questions: "assets/zh-HK-question-sets.yaml"
+    // zh-CN.yaml: self.test.questions: "assets/zh-CN-question-sets.yaml"
+    final String fileName = 'self.test.questions'.tr();
+    try {
+      final String yamlString = await rootBundle.loadString(fileName);
+      final yamlMap = loadYaml(yamlString);
+      // 假設 YAML 結構為：
+      // self_test:
+      //   questionSets: [ [...], [...] ]
+      final List<dynamic> qs = yamlMap['self_test']['questionSets'];
+      setState(() {
+        _questionSets = qs.map<List<Map<String, dynamic>>>((set) {
+          return (set as List).map<Map<String, dynamic>>((q) {
+            return Map<String, dynamic>.from(q);
+          }).toList();
+        }).toList();
+        _setRandomQuestionSet();
+      });
+    } catch (e) {
+      debugPrint("⚠️ Unable to load question set from YAML: $e");
+    }
   }
 
   void _setRandomQuestionSet() {
@@ -161,24 +62,21 @@ class SelfTestPageState extends State<SelfTestPage> {
   void _submitTest() {
     int score = _answers.fold(0, (sum, item) => sum + item);
     String resultText;
-
     if (score <= 5) {
-      resultText = "🎉 初步感覺都很正常\n無需過度擔心，但仍可關注孩子的發展";
+      resultText = 'self.test.result.1'.tr();
     } else if (score <= 12) {
-      resultText = "⚠️ 建議找專業醫生評估\n可考慮與兒科醫生或專家討論孩子的行為";
+      resultText = 'self.test.result.2'.tr();
     } else {
-      resultText = "🚨 需要立即評估！\n請盡快尋求專業醫生或評估機構幫助";
+      resultText = 'self.test.result.3'.tr();
     }
-
     setState(() {
       _isCompleted = true;
     });
-
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text("🔍 測試結果"),
+          title: Text('self.test.result.label'.tr()),
           content: Text(
             resultText,
             textAlign: TextAlign.center,
@@ -190,7 +88,7 @@ class SelfTestPageState extends State<SelfTestPage> {
                 Navigator.of(context).pop();
                 _setRandomQuestionSet();
               },
-              child: const Text("重新測驗"),
+              child: Text('self.test.result.testagain'.tr()),
             ),
           ],
         );
@@ -200,42 +98,41 @@ class SelfTestPageState extends State<SelfTestPage> {
 
   @override
   Widget build(BuildContext context) {
+    if (_questionSets.isEmpty) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          '小測驗',
+        title: Text(
+          'self.test.app.bar'.tr(),
           style: TextStyle(
-            // fontWeight: FontWeight.bold,
-            color: Colors.black, // ✅ 適配淺米色背景
+            color: Colors.black,
           ),
-        ),        
+        ),
         backgroundColor: const Color(0xFFF5E8D3),
       ),
       body: Stack(
         children: [
-          // 🌄 背景圖片（透明度 70%）
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: const AssetImage(
-                  'assets/self_test_wallpaper.png',
-                ), // 📌 確保這張圖片存在
+                image: const AssetImage('assets/self_test_wallpaper.png'),
                 fit: BoxFit.cover,
                 colorFilter: ColorFilter.mode(
-                  const Color.fromARGB(40, 255, 255, 255), // **背景變淡**
+                  const Color.fromARGB(40, 255, 255, 255),
                   BlendMode.dstATop,
                 ),
               ),
             ),
           ),
-
-          /// **測驗內容**
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
-                const Text(
-                  "🔍 ASD 自閉症初步評估小測驗",
+                Text(
+                  'self.test.title'.tr(),
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
@@ -244,15 +141,13 @@ class SelfTestPageState extends State<SelfTestPage> {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 20),
-
-                /// **📝 測驗表單（加上半透明白底）**
                 Expanded(
                   child: Container(
                     padding: const EdgeInsets.all(16.0),
                     decoration: BoxDecoration(
-                      color: const Color.fromARGB(128, 255, 255, 255), // ✅ 128 = 50% 透明度
+                      color: const Color.fromARGB(128, 255, 255, 255),
                       borderRadius: BorderRadius.circular(12.0),
-                    ),                    
+                    ),
                     child: ListView.builder(
                       itemCount: _currentQuestions.length,
                       itemBuilder: (context, index) {
@@ -287,11 +182,9 @@ class SelfTestPageState extends State<SelfTestPage> {
                     ),
                   ),
                 ),
-
-                /// **提交按鈕**
                 ElevatedButton(
                   onPressed: _answers.contains(-1) ? null : _submitTest,
-                  child: const Text("提交測驗結果"),
+                  child: Text('self.test.submit.button'.tr()),
                 ),
               ],
             ),
