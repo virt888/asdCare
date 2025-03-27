@@ -85,7 +85,7 @@ class RunningGame extends FlameGame with HasCollisionDetection, TapDetector {
   late Player _player;
   late TimerComponent _spawnObstacleTimer;
   int score = 0;
-  int health = 20;
+  int health = 10;
 
   @override
   Future<void> onLoad() async {
@@ -124,16 +124,17 @@ class RunningGame extends FlameGame with HasCollisionDetection, TapDetector {
   }
 
   void reduceHealth() {
-    // 假設 health 是一個 int 屬性表示剩餘心數
     health--;
+    debugPrint("reduceHealth called, health is now $health");
+    // 更新 Health overlay
+    overlays.remove('Health');
+    overlays.add('Health');
+
     if (health <= 0) {
-      // 遊戲結束，暫停遊戲引擎（如果你有這個方法）
       pauseEngine();
-      // 顯示 Game Over 對話框（參考 memory_game.dart 的 _gameCompleted() 方法）
       Future.delayed(Duration.zero, () {
         showDialog(
-          context:
-              buildContext, // 請確保你有正確的 BuildContext（例如通過 gameRef.context 或其他方式取得）
+          context: buildContext!, // 確保 buildContext 不為 null
           barrierDismissible: false,
           builder: (context) {
             return AlertDialog(
@@ -143,7 +144,6 @@ class RunningGame extends FlameGame with HasCollisionDetection, TapDetector {
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
-                    // 重新開始遊戲，這裡假設有一個 restartGame() 方法
                     restartGame();
                     resumeEngine();
                   },
@@ -155,6 +155,22 @@ class RunningGame extends FlameGame with HasCollisionDetection, TapDetector {
         );
       });
     }
+  }
+
+  void restartGame() {
+    // 重置遊戲狀態
+    score = 0;
+    health = 10; // 或設定你預設的心數
+
+    // 移除所有障礙物（Obstacle）
+    children.whereType<Obstacle>().forEach((obstacle) {
+      obstacle.removeFromParent();
+    });
+
+    // 重設玩家位置，根據你的遊戲邏輯調整這裡
+    _player.position = Vector2(100, size.y - 100);
+
+    // 如果有其他遊戲狀態需要重置，請在這裡添加
   }
 }
 
@@ -224,8 +240,9 @@ class Obstacle extends SpriteComponent
   ) {
     super.onCollisionStart(intersectionPoints, other);
     if (other is Player) {
+      debugPrint("Obstacle collided with Player. Reducing health.");
       gameRef.reduceHealth();
-      // Optionally, you can remove the obstacle after collision
+      // 移除障礙物後可讓玩家不重複碰撞
       removeFromParent();
     }
   }
