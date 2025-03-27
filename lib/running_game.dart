@@ -89,7 +89,7 @@ class RunningGame extends FlameGame with HasCollisionDetection, TapDetector {
 
   @override
   Future<void> onLoad() async {
-    FlameAudio.bgm.play('bgm.mp3', volume: 0.5);
+    FlameAudio.bgm.play('bgm.m4a', volume: 0.5);
 
     _background = await loadParallaxComponent(
       [ParallaxImageData('farm_background_2.png')],
@@ -206,7 +206,7 @@ class Player extends SpriteComponent
     if (jumpCount < 3) {
       speedY = jumpVelocity;
       jumpCount++;
-      FlameAudio.play('jump.mp3');
+      FlameAudio.play('jump.m4a');
     }
   }
 }

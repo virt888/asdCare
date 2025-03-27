@@ -116,7 +116,7 @@ class LeftMenuState extends State<LeftMenu> {
                       },
                     ),
                     ListTile(
-                      leading: const Icon(Icons.running_with_errors),
+                      leading: const Icon(Icons.run_circle),
                       title: Text('left.menu.game.2'.tr()),
                       onTap: () {
                         Navigator.push(
