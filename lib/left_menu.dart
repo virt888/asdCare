@@ -11,6 +11,7 @@ import 'info_page.dart';
 import 'support_page.dart';
 
 import 'memory_game.dart'; // ✅ 新增 記憶翻牌遊戲
+import 'running_game.dart'; // ✅ 新增 跳跳遊戲
 import 'self_test.dart'; // ✅ 新增 小測驗
 import 'source_page.dart'; //
 
@@ -23,7 +24,8 @@ class LeftMenu extends StatefulWidget {
 
 class LeftMenuState extends State<LeftMenu> {
   String appVersion = "載入中..."; // 預設值
-  final GlobalKey<PopupMenuButtonState<String>> _languageMenuKey = GlobalKey<PopupMenuButtonState<String>>();
+  final GlobalKey<PopupMenuButtonState<String>> _languageMenuKey =
+      GlobalKey<PopupMenuButtonState<String>>();
 
   @override
   void initState() {
@@ -114,6 +116,18 @@ class LeftMenuState extends State<LeftMenu> {
                       },
                     ),
                     ListTile(
+                      leading: const Icon(Icons.running_with_errors),
+                      title: Text('left.menu.game.2'.tr()),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const RunningGamePage(),
+                          ), // ✅ 跳跳遊戲
+                        );
+                      },
+                    ),
+                    ListTile(
                       leading: const Icon(Icons.assignment), // ✅ 使用問卷圖標
                       title: Text('left.menu.test'.tr()),
                       onTap: () {
@@ -200,20 +214,21 @@ class LeftMenuState extends State<LeftMenu> {
                         final prefs = await SharedPreferences.getInstance();
                         await prefs.setString('language_code', value);
                       },
-                      itemBuilder: (context) => [
-                        const PopupMenuItem(
-                          value: 'zh-TW',
-                          child: Text('繁體中文'),
-                        ),
-                        const PopupMenuItem(
-                          value: 'zh-CN',
-                          child: Text('简体中文'),
-                        ),
-                        const PopupMenuItem(
-                          value: 'en',
-                          child: Text('English'),
-                        ),
-                      ],
+                      itemBuilder:
+                          (context) => [
+                            const PopupMenuItem(
+                              value: 'zh-TW',
+                              child: Text('繁體中文'),
+                            ),
+                            const PopupMenuItem(
+                              value: 'zh-CN',
+                              child: Text('简体中文'),
+                            ),
+                            const PopupMenuItem(
+                              value: 'en',
+                              child: Text('English'),
+                            ),
+                          ],
                       child: ListTile(
                         onTap: () {
                           _languageMenuKey.currentState?.showButtonMenu();
@@ -229,7 +244,9 @@ class LeftMenuState extends State<LeftMenu> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          'left.menu.version'.tr(namedArgs: {'appVersion': appVersion}),
+                          'left.menu.version'.tr(
+                            namedArgs: {'appVersion': appVersion},
+                          ),
                           style: const TextStyle(
                             fontSize: 12,
                             color: Colors.grey,
