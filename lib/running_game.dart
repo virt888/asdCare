@@ -272,8 +272,8 @@ class RunningGame extends FlameGame with HasCollisionDetection, TapDetector {
     overlays.add('Score');
 
     // 如果背景音樂啟用，則從頭重播
+    FlameAudio.bgm.stop();
     if (musicEnabled) {
-      FlameAudio.bgm.stop();
       FlameAudio.bgm.play('bgm.m4a', volume: 0.5);
       FlameAudio.bgm.audioPlayer.setReleaseMode(ReleaseMode.loop);
     }
