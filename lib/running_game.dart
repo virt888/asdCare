@@ -1,5 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'dart:io';
 import 'package:flame/game.dart';
 import 'package:flame/components.dart';
 import 'package:flame/parallax.dart';
@@ -43,12 +44,20 @@ class _RunningGamePageState extends State<RunningGamePage> {
           )
           .timeout(const Duration(seconds: 3));
       final yamlMap = loadYaml(response.body);
-      final String enableMusic =
-          yamlMap['ENABLE_MUSIC'].toString().toUpperCase();
+
+      String enableMusic;
+      if (Platform.isIOS) {
+        enableMusic = yamlMap['iOS_ENABLE_MUSIC'].toString().toUpperCase();
+      } else if (Platform.isAndroid) {
+        enableMusic = yamlMap['aOS_ENABLE_MUSIC'].toString().toUpperCase();
+      } else {
+        enableMusic = "NO"; // fallback for other platforms
+      }
+
       setState(() {
         configMusicEnabled = (enableMusic == "YES");
         audioEnabled = configMusicEnabled;
-        sfxEnabled = configMusicEnabled; // Make jump sound follow music config
+        sfxEnabled = configMusicEnabled; // both follow configuration
         _game.musicEnabled = audioEnabled;
         _game.sfxEnabled = sfxEnabled;
         if (audioEnabled) {
@@ -61,7 +70,7 @@ class _RunningGamePageState extends State<RunningGamePage> {
       setState(() {
         configMusicEnabled = false;
         audioEnabled = false;
-        sfxEnabled = false; // Ensure jump sound is disabled too
+        sfxEnabled = false;
         _game.musicEnabled = false;
         _game.sfxEnabled = false;
       });
