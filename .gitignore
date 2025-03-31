@@ -17,3 +17,12 @@ android/local.properties
 .flutter-plugins
 .idea/workspace.xml
 android/local.properties
+ios/Runner.xcworkspace/xcuserdata/barrytji.xcuserdatad/UserInterfaceState.xcuserstate
+ios/Pods/Pods.xcodeproj/project.pbxproj
+ios/Pods/Local Podspecs/webview_flutter_wkwebview.podspec.json
+ios/Pods/Local Podspecs/url_launcher_ios.podspec.json
+ios/Podfile.lock
+ios/Flutter/Generated.xcconfig
+ios/Flutter/flutter_export_environment.sh
+ios/.symlinks/plugins/webview_flutter_wkwebview
+ios/.symlinks/plugins/url_launcher_ios
