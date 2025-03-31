@@ -5,6 +5,7 @@ import 'package:flame/collisions.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flame/input.dart';
+import 'dart:math';
 
 class RunningGamePage extends StatelessWidget {
   const RunningGamePage({super.key});
@@ -92,7 +93,7 @@ class RunningGame extends FlameGame with HasCollisionDetection, TapDetector {
     FlameAudio.bgm.play('bgm.m4a', volume: 0.5);
 
     _background = await loadParallaxComponent(
-      [ParallaxImageData('farm_background_2.png')],
+      [ParallaxImageData('farm_background_3.png')],
       baseVelocity: Vector2(50, 0),
       repeat: ImageRepeat.repeat,
     );
@@ -218,7 +219,15 @@ class Obstacle extends SpriteComponent
   @override
   Future<void> onLoad() async {
     sprite = await gameRef.loadSprite('sheep_obstacle.png');
-    position = Vector2(gameRef.size.x, gameRef.size.y - 100);
+    
+    // Old version, same distance
+    // position = Vector2(gameRef.size.x, gameRef.size.y - 100);
+    
+    // Set a minimum offset and a maximum additional random offset
+    final double minOffset = 100; // minimum extra distance (adjust as needed)
+    final double maxAdditionalOffset = 200; // additional random distance range
+    final double offsetX = gameRef.size.x + minOffset + Random().nextDouble() * maxAdditionalOffset;
+    position = Vector2(offsetX, gameRef.size.y - 100);
     add(RectangleHitbox());
   }
 
