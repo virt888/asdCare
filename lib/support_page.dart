@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:yaml/yaml.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 
 class SupportPage extends StatefulWidget {
@@ -26,9 +25,9 @@ class SupportPageState extends State<SupportPage> {
 
   void _fetchReferenceLinks() async {
     try {
-      final response = await http.get(
-        Uri.parse('support.page.url.1'.tr()),
-      ).timeout(const Duration(seconds: 3)); // ✅ 設置 3 秒 Timeout
+      final response = await http
+          .get(Uri.parse('support.page.url.1'.tr()))
+          .timeout(const Duration(seconds: 3)); // ✅ 設置 3 秒 Timeout
 
       if (response.statusCode == 200) {
         final String utf8Response = utf8.decode(response.bodyBytes);
@@ -57,7 +56,6 @@ class SupportPageState extends State<SupportPage> {
   }
 
   void _loadLocalReferenceLinks() async {
-
     final String localFile = 'support.page.url.2'.tr();
     final String response = await rootBundle.loadString(localFile);
     final YamlMap data = loadYaml(response);
@@ -87,7 +85,7 @@ class SupportPageState extends State<SupportPage> {
             // fontWeight: FontWeight.bold,
             color: Colors.black, // ✅ 適配淺米色背景
           ),
-        ),        
+        ),
         backgroundColor: const Color(0xFFF5E8D3),
       ),
       body: Container(
@@ -111,11 +109,7 @@ class SupportPageState extends State<SupportPage> {
               // 🏥 標題 + 醫生 ICON
               Row(
                 children: [
-                  Image.asset(
-                    'assets/doctor_icon.png',
-                    width: 48,
-                    height: 48,
-                  ),
+                  Image.asset('assets/doctor_icon.png', width: 48, height: 48),
                   const SizedBox(width: 10),
                   Text(
                     "support.page.story.1.title".tr(),
@@ -145,7 +139,7 @@ class SupportPageState extends State<SupportPage> {
               ),
               _buildStep(
                 "support.page.story.1.step.4.title".tr(),
-                "support.page.story.1.step.4.content".tr(),                
+                "support.page.story.1.step.4.content".tr(),
               ),
               _buildStep(
                 "support.page.story.1.step.5.title".tr(),
@@ -162,9 +156,7 @@ class SupportPageState extends State<SupportPage> {
               Container(
                 padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
-                  color: Colors.white.withAlpha(
-                    (0.95 * 255).toInt(),
-                  ),
+                  color: Colors.white.withAlpha((0.95 * 255).toInt()),
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
@@ -199,14 +191,23 @@ class SupportPageState extends State<SupportPage> {
                     _isLoading
                         ? const Center(child: CircularProgressIndicator())
                         : Column(
-                            crossAxisAlignment: CrossAxisAlignment.start, // ✅ 確保文字左對齊
-                            children: referenceLinks
-                                .map((link) => Align(
-                                      alignment: Alignment.centerLeft, // ✅ 讓每個 Link 左對齊
-                                      child: _buildLink(link['title']!, link['url']!),
-                                    ))
-                                .toList(),
-                          ),
+                          crossAxisAlignment:
+                              CrossAxisAlignment.start, // ✅ 確保文字左對齊
+                          children:
+                              referenceLinks
+                                  .map(
+                                    (link) => Align(
+                                      alignment:
+                                          Alignment
+                                              .centerLeft, // ✅ 讓每個 Link 左對齊
+                                      child: _buildLink(
+                                        link['title']!,
+                                        link['url']!,
+                                      ),
+                                    ),
+                                  )
+                                  .toList(),
+                        ),
                   ],
                 ),
               ),
