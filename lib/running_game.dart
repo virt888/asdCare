@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flame/input.dart';
 import 'dart:math';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:http/http.dart' as http;
+import 'package:yaml/yaml.dart';
 
 class RunningGamePage extends StatefulWidget {
   const RunningGamePage({super.key});
@@ -18,13 +20,52 @@ class RunningGamePage extends StatefulWidget {
 }
 
 class _RunningGamePageState extends State<RunningGamePage> {
-  bool audioEnabled = true; // 控制背景音樂和音效的單一開關
+  bool configMusicEnabled = false; // 從 YAML 讀取的配置
+  bool audioEnabled = false; // 用來控制當前是否開啟背景音樂
+  bool sfxEnabled = false; // 音效開關
   late final RunningGame _game;
 
   @override
   void initState() {
     super.initState();
-    _game = RunningGame(); // 創建一次遊戲實例
+    // 初始狀態先不播音樂
+    audioEnabled = false;
+    // 先創建遊戲實例，預設使用當前狀態 (可能後續更新)
+    _game = RunningGame(musicEnabled: audioEnabled, sfxEnabled: sfxEnabled);
+    _loadGameConfigFromYaml();
+  }
+
+  Future<void> _loadGameConfigFromYaml() async {
+    try {
+      final response = await http
+          .get(
+            Uri.parse('https://virt888.github.io/asdCare_files/settings.yaml'),
+          )
+          .timeout(const Duration(seconds: 3));
+      final yamlMap = loadYaml(response.body);
+      final String enableMusic =
+          yamlMap['ENABLE_MUSIC'].toString().toUpperCase();
+      setState(() {
+        configMusicEnabled = (enableMusic == "YES");
+        audioEnabled = configMusicEnabled;
+        sfxEnabled = configMusicEnabled; // Make jump sound follow music config
+        _game.musicEnabled = audioEnabled;
+        _game.sfxEnabled = sfxEnabled;
+        if (audioEnabled) {
+          FlameAudio.bgm.play('bgm.m4a', volume: 0.5);
+          FlameAudio.bgm.audioPlayer.setReleaseMode(ReleaseMode.loop);
+        }
+      });
+    } catch (e) {
+      debugPrint("⚠️ Failed to load game config: $e");
+      setState(() {
+        configMusicEnabled = false;
+        audioEnabled = false;
+        sfxEnabled = false; // Ensure jump sound is disabled too
+        _game.musicEnabled = false;
+        _game.sfxEnabled = false;
+      });
+    }
   }
 
   @override
@@ -34,19 +75,18 @@ class _RunningGamePageState extends State<RunningGamePage> {
         title: Text("mini.game.jump.app.bar".tr()),
         backgroundColor: const Color(0xFFF5E8D3),
         actions: [
-          // 單一音頻開關按鈕：音頻開啟時顯示 volume_up，關閉時顯示 volume_off
-          IconButton(
-            icon: Icon(audioEnabled ? Icons.volume_off : Icons.volume_up),
-            onPressed: () {
-              setState(() {
-                audioEnabled = !audioEnabled;
-              });
-              // 控制背景音樂音量
-              FlameAudio.bgm.audioPlayer.setVolume(audioEnabled ? 0.5 : 0.0);
-              // 更新遊戲中音效開關
-              _game.sfxEnabled = audioEnabled;
-            },
-          ),
+          if (configMusicEnabled)
+            IconButton(
+              icon: Icon(audioEnabled ? Icons.volume_up : Icons.volume_off),
+              onPressed: () {
+                setState(() {
+                  audioEnabled = !audioEnabled;
+                  _game.musicEnabled = audioEnabled;
+                  _game.sfxEnabled = audioEnabled;
+                });
+                FlameAudio.bgm.audioPlayer.setVolume(audioEnabled ? 0.5 : 0.0);
+              },
+            ),
         ],
       ),
       body: GameWidget(
@@ -112,29 +152,33 @@ class _RunningGamePageState extends State<RunningGamePage> {
 }
 
 class RunningGame extends FlameGame with HasCollisionDetection, TapDetector {
-  bool sfxEnabled = true;
+  bool musicEnabled; // 控制背景音樂開關
+  bool sfxEnabled; // 控制音效開關
+
   late ParallaxComponent _background;
   late Player _player;
   late TimerComponent _spawnObstacleTimer;
   int score = 0;
   int health = 10;
 
+  RunningGame({this.musicEnabled = false, this.sfxEnabled = false});
+
   @override
   Future<void> onLoad() async {
-    FlameAudio.bgm.stop();
-    FlameAudio.bgm.play('bgm.m4a', volume: 0.5);
-    FlameAudio.bgm.audioPlayer.setReleaseMode(ReleaseMode.loop);
-
+    // 如果啟用了背景音樂，就播放
+    if (musicEnabled) {
+      FlameAudio.bgm.play('bgm.m4a', volume: 0.5);
+      FlameAudio.bgm.audioPlayer.setReleaseMode(ReleaseMode.loop);
+    }
+    // 載入背景
     _background = await loadParallaxComponent(
       [ParallaxImageData('farm_background_4.png')],
       baseVelocity: Vector2(50, 0),
       repeat: ImageRepeat.repeat,
     );
     add(_background);
-
     _player = Player();
     add(_player);
-
     _spawnObstacleTimer = TimerComponent(
       period: 2,
       repeat: true,
