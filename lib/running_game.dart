@@ -210,11 +210,12 @@ class Player extends SpriteComponent
   double speedY = 0;
   int jumpCount = 0;
 
-  Player() : super(size: Vector2(50, 50));
+  // Original image: 431 x 620, aspect ratio ~0.70. For a height of 50, width ≈ 35.
+  Player() : super(size: Vector2(35, 50));
 
   @override
   Future<void> onLoad() async {
-    sprite = await gameRef.loadSprite('player_child.png');
+    sprite = await gameRef.loadSprite('player_child_v1.png');
     position = Vector2(100, gameRef.size.y - 100);
     add(RectangleHitbox());
   }
@@ -242,11 +243,13 @@ class Player extends SpriteComponent
 
 class Obstacle extends SpriteComponent
     with HasGameRef<RunningGame>, CollisionCallbacks {
-  Obstacle() : super(size: Vector2(50, 50));
+
+  // Original image: 664 x 463, aspect ratio ~1.43. For a height of 50, width ≈ 72.
+  Obstacle() : super(size: Vector2(72, 50));  
 
   @override
   Future<void> onLoad() async {
-    sprite = await gameRef.loadSprite('sheep_obstacle.png');
+    sprite = await gameRef.loadSprite('sheep_obstacle_v1.png');
     
     // Old version, same distance
     // position = Vector2(gameRef.size.x, gameRef.size.y - 100);
