@@ -118,6 +118,12 @@ class RunningGame extends FlameGame with HasCollisionDetection, TapDetector {
     _player.jump();
   }
 
+  @override
+  void onDetach() {
+    FlameAudio.bgm.stop();
+    super.onDetach();
+  }
+
   void increaseScore() {
     score++;
     overlays.remove('Score');
@@ -130,7 +136,7 @@ class RunningGame extends FlameGame with HasCollisionDetection, TapDetector {
     // 更新 Health overlay
     overlays.remove('Health');
     overlays.add('Health');
-
+    
     if (health <= 0) {
       pauseEngine();
       Future.delayed(Duration.zero, () {
@@ -140,7 +146,7 @@ class RunningGame extends FlameGame with HasCollisionDetection, TapDetector {
           builder: (context) {
             return AlertDialog(
               title: const Text("Game Over"),
-              content: const Text("你已失去所有心心！"),
+              content: Text("你已失去所有心心！\n你跳過: $score 隻羊"),
               actions: [
                 TextButton(
                   onPressed: () {
@@ -161,16 +167,24 @@ class RunningGame extends FlameGame with HasCollisionDetection, TapDetector {
   void restartGame() {
     // 重置遊戲狀態
     score = 0;
-    health = 10; // 或設定你預設的心數
+    health = 10; // 設定新心數為 10
 
     // 移除所有障礙物（Obstacle）
     children.whereType<Obstacle>().forEach((obstacle) {
       obstacle.removeFromParent();
     });
 
-    // 重設玩家位置，根據你的遊戲邏輯調整這裡
+    // 重設玩家位置（根據你的邏輯調整）
     _player.position = Vector2(100, size.y - 100);
-
+    
+    // Reset score overlay by removing and adding again
+    overlays.remove('Score');
+    overlays.add('Score');
+    
+    // 重播背景音樂從頭開始：先停止再播放
+    FlameAudio.bgm.stop();
+    FlameAudio.bgm.play('bgm.m4a', volume: 0.5);
+    
     // 如果有其他遊戲狀態需要重置，請在這裡添加
   }
 }
