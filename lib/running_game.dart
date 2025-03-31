@@ -6,6 +6,8 @@ import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flame/input.dart';
 import 'dart:math';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:audioplayers/audioplayers.dart'; 
 
 class RunningGamePage extends StatelessWidget {
   const RunningGamePage({super.key});
@@ -14,21 +16,9 @@ class RunningGamePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Running Game"),
+        title: Text("mini.game.jump.app.bar".tr()),
         backgroundColor: const Color(0xFFF5E8D3),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.play_arrow),
-            onPressed: () {
-              FlameAudio.bgm.resume();
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.stop),
-            onPressed: () {
-              FlameAudio.bgm.stop();
-            },
-          ),
           IconButton(
             icon: const Icon(Icons.volume_off),
             onPressed: () {
@@ -51,7 +41,9 @@ class RunningGamePage extends StatelessWidget {
               top: 20,
               right: 20,
               child: Text(
-                "跳過: ${game.score} 隻羊",
+                'mini.game.jump.topright.message'.tr(
+                        namedArgs: {'score': game.score.toString()},
+                      ),
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -61,17 +53,34 @@ class RunningGamePage extends StatelessWidget {
             );
           },
           'Health': (context, RunningGame game) {
+            int hearts = game.health;
+            int firstRowCount = hearts >= 5 ? 5 : hearts;
+            int secondRowCount = hearts > 5 ? hearts - 5 : 0;
+            
             return Positioned(
               top: 20,
               left: 20,
-              child: Row(
-                children: List.generate(
-                  game.health,
-                  (index) => Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 2),
-                    child: Image.asset("assets/images/heart.png", width: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: List.generate(firstRowCount, (index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 2),
+                        child: Image.asset("assets/images/heart.png", width: 20),
+                      );
+                    }),
                   ),
-                ),
+                  if (secondRowCount > 0)
+                    Row(
+                      children: List.generate(secondRowCount, (index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 2),
+                          child: Image.asset("assets/images/heart.png", width: 20),
+                        );
+                      }),
+                    ),
+                ],
               ),
             );
           },
@@ -90,10 +99,12 @@ class RunningGame extends FlameGame with HasCollisionDetection, TapDetector {
 
   @override
   Future<void> onLoad() async {
+    FlameAudio.bgm.stop();    
     FlameAudio.bgm.play('bgm.m4a', volume: 0.5);
+    FlameAudio.bgm.audioPlayer.setReleaseMode(ReleaseMode.loop);
 
     _background = await loadParallaxComponent(
-      [ParallaxImageData('farm_background_3.png')],
+      [ParallaxImageData('farm_background_4.png')],
       baseVelocity: Vector2(50, 0),
       repeat: ImageRepeat.repeat,
     );
@@ -145,8 +156,10 @@ class RunningGame extends FlameGame with HasCollisionDetection, TapDetector {
           barrierDismissible: false,
           builder: (context) {
             return AlertDialog(
-              title: const Text("Game Over"),
-              content: Text("你已失去所有心心！\n你跳過: $score 隻羊"),
+              title: Text("mini.game.jump.popup.title".tr()),
+              content: Text('mini.game.jump.popup.message'.tr(
+                        namedArgs: {'score': score.toString()},
+                      )),
               actions: [
                 TextButton(
                   onPressed: () {
@@ -154,7 +167,7 @@ class RunningGame extends FlameGame with HasCollisionDetection, TapDetector {
                     restartGame();
                     resumeEngine();
                   },
-                  child: const Text("重新挑戰"),
+                  child: Text('mini.game.jump.popup.playagain'.tr()),
                 ),
               ],
             );
@@ -184,6 +197,7 @@ class RunningGame extends FlameGame with HasCollisionDetection, TapDetector {
     // 重播背景音樂從頭開始：先停止再播放
     FlameAudio.bgm.stop();
     FlameAudio.bgm.play('bgm.m4a', volume: 0.5);
+    FlameAudio.bgm.audioPlayer.setReleaseMode(ReleaseMode.loop);
     
     // 如果有其他遊戲狀態需要重置，請在這裡添加
   }
@@ -218,7 +232,7 @@ class Player extends SpriteComponent
   }
 
   void jump() {
-    if (jumpCount < 3) {
+    if (jumpCount < 5) {
       speedY = jumpVelocity;
       jumpCount++;
       FlameAudio.play('jump.m4a');
