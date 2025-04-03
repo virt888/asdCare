@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class AboutUsPage extends StatelessWidget {
   const AboutUsPage({super.key});
@@ -7,8 +8,8 @@ class AboutUsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          '關於我們',
+        title: Text(
+          'about.page.app.bar'.tr(),
           style: TextStyle(
             // fontWeight: FontWeight.bold,
             color: Colors.black, // ✅ 適配淺米色背景
@@ -23,8 +24,8 @@ class AboutUsPage extends StatelessWidget {
           children: [
             Image.asset('assets/about_us_banner.png', height: 180), // ✅ 添加溫暖圖片
             const SizedBox(height: 20),
-            const Text(
-              '🌟 關於 ASD Care 關懷 🌟',
+            Text(
+              'about.page.title'.tr(),
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -33,20 +34,20 @@ class AboutUsPage extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 15),
-            const Text(
-              '👋 你好！我們是 ASD Care 關懷，一個專注於關愛自閉症人士（ASD）及其家庭的非營利平台。',
+            Text(
+              'about.page.content.1'.tr(),
               style: TextStyle(fontSize: 18),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 20),
-            const Text(
-              '💙 這APP由一位 ASD 孩子的家長創立，希望透過自身經歷和資源，為更多 ASD 家庭帶來支持、理解和溫暖。我們深知這條路不容易走，因此希望用實際行動，幫助更多有需要的人。',
+            Text(
+              'about.page.content.2'.tr(),
               style: TextStyle(fontSize: 16),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 25),
-            const Text(
-              '我們提供的服務：',
+            Text(
+              'about.page.service.title'.tr(),
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -55,21 +56,21 @@ class AboutUsPage extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 15),
-            const ListTile(
+            ListTile(
               leading: Icon(Icons.arrow_right_rounded, color: Colors.green),
-              title: Text('分享 ASD 相關資訊與實用資源'),
+              title: Text('about.page.service.1'.tr()),
             ),
-            const ListTile(
+            ListTile(
               leading: Icon(Icons.arrow_right_rounded, color: Colors.green),
-              title: Text('提供家長與照顧者的支持與交流平台'),
+              title: Text('about.page.service.2'.tr()),
             ),
-            const ListTile(
+            ListTile(
               leading: Icon(Icons.arrow_right_rounded, color: Colors.green),
-              title: Text('推廣社會大眾對 ASD 的認識與接納'),
+              title: Text('about.page.service.3'.tr()),
             ),
-            const ListTile(
+            ListTile(
               leading: Icon(Icons.arrow_right_rounded, color: Colors.green),
-              title: Text('透過免費服務，讓更多 ASD 人士得到幫助'),
+              title: Text('about.page.service.4'.tr()),
             ),
           ],
         ),

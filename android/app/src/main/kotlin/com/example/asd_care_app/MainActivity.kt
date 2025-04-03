@@ -1,4 +1,4 @@
-package com.example.asd_care_app
+package com.infoex
 
 import io.flutter.embedding.android.FlutterActivity
 

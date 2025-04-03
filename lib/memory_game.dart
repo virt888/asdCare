@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:confetti/confetti.dart';
 import 'dart:async';
+import 'package:easy_localization/easy_localization.dart';
 
 class MemoryGamePage extends StatefulWidget {
   const MemoryGamePage({super.key});
@@ -126,13 +127,15 @@ class MemoryGamePageState extends State<MemoryGamePage> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: const Text(
-              "🎉 你好叻呀！ 🎉",
+            title: Text(
+              "memory.game.result.message".tr(),
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             content: Text(
-              "你用了 $_elapsedTime 秒完成記憶配對遊戲！",
+              'memory.game.result.record'.tr(
+                namedArgs: {'elapsedTime': _elapsedTime.toString()},
+              ),
               textAlign: TextAlign.center,
               style: const TextStyle(fontSize: 18),
             ),
@@ -142,7 +145,7 @@ class MemoryGamePageState extends State<MemoryGamePage> {
                   Navigator.of(context).pop();
                   _restartGame();
                 },
-                child: const Text("再玩一次"),
+                child: Text("memory.game.result.playagain".tr()),
               ),
             ],
           );
@@ -169,13 +172,13 @@ class MemoryGamePageState extends State<MemoryGamePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          '小遊戲',
+        title: Text(
+          'memory.game.app.bar'.tr(),
           style: TextStyle(
             // fontWeight: FontWeight.bold,
             color: Colors.black, // ✅ 適配淺米色背景
           ),
-        ),        
+        ),
         backgroundColor: const Color(0xFFF5E8D3),
       ),
       body: Stack(
@@ -202,14 +205,20 @@ class MemoryGamePageState extends State<MemoryGamePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "⏳ 時間: $_elapsedTime 秒",
+                      'memory.game.time.label'.tr(
+                        namedArgs: {'elapsedTime': _elapsedTime.toString()},
+                      ),
                       style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
-                      _bestTime != null ? "🏆 最快: $_bestTime 秒" : "🏆 最快: --",
+                      _bestTime != null
+                          ? 'memory.game.besttime.label'.tr(
+                            namedArgs: {'bestTime': _bestTime.toString()},
+                          )
+                          : 'memory.game.besttime.label.default'.tr(),
                       style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,

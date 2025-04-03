@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class SourcePage extends StatelessWidget {
   const SourcePage({super.key});
@@ -8,8 +9,8 @@ class SourcePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          '醫學資訊來源',
+        title: Text(
+          'source.page.app.bar'.tr(),
           style: TextStyle(
             // fontWeight: FontWeight.bold,
             color: Colors.black, // ✅ 適配淺米色背景
@@ -43,30 +44,30 @@ class SourcePage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        "本應用程式內提供的 ASD（自閉症光譜）相關資訊均參考以下權威醫學及學術機構，確保資訊的準確性及可靠性：",
+                      Text(
+                        'source.page.title'.tr(),
                         style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 16),
                       _buildSourceItem(
-                        title: "美國疾病控制與預防中心 (CDC)",
-                        url: "https://www.cdc.gov/ncbddd/autism/index.html",
+                        title: 'source.page.title.1'.tr(),
+                        url: 'source.page.url.1'.tr(),
                       ),
                       _buildSourceItem(
-                        title: "世界衛生組織 (WHO)",
-                        url: "https://www.who.int/news-room/fact-sheets/detail/autism-spectrum-disorders",
+                        title: 'source.page.title.2'.tr(),
+                        url: 'source.page.url.2'.tr(),
                       ),
                       _buildSourceItem(
-                        title: "香港中文大學",
-                        url: "http://autism.cuhk.edu.hk",
+                        title: 'source.page.title.3'.tr(),
+                        url: 'source.page.url.3'.tr(),
                       ),
                       _buildSourceItem(
-                        title: "香港大學自閉症兒童訓練資源手冊",
-                        url: "https://www.socsc.hku.hk/JCA-Connect/en/%E8%87%AA%E9%96%89%E7%97%87%E5%85%92%E7%AB%A5%E8%A8%93%E7%B7%B4%E8%B3%87%E6%BA%90%E6%89%8B%E5%86%8A/",
+                        title: 'source.page.title.4'.tr(),
+                        url: 'source.page.url.4'.tr(),
                       ),
                       const SizedBox(height: 20),
-                      const Text(
-                        "我們建議家長如對資訊有疑問，應諮詢專業醫生或專家，以獲取最適切的建議。",
+                      Text(
+                        'source.page.reminder'.tr(),
                         style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic),
                       ),
                     ],
