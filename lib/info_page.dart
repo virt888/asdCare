@@ -82,14 +82,15 @@ class InfoPageState extends State<InfoPage> {
 
     String adUnitId;
     if (Platform.isAndroid) {
-      adUnitId = 'ca-app-pub-8691410470836032/8754478052';
+      adUnitId = 'ca-app-pub-8691410470836032/8817718898';
     } else {
       adUnitId = 'ca-app-pub-8691410470836032/8754478052';
     }  
 
     InterstitialAd.load(
       // adUnitId: 'ca-app-pub-3940256099942544/1033173712', // 測試 ID
-      // adUnitId: 'ca-app-pub-8691410470836032/8754478052', // REAL ID      
+      // adUnitId: 'ca-app-pub-8691410470836032/8754478052', // REAL ID iOS    
+      // adUnitId: 'ca-app-pub-8691410470836032/8817718898', // REAL ID aOS
       adUnitId: adUnitId, // REAL ID
       request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
